@@ -3,25 +3,20 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:stylish/Features/OnBoardScreen/on_board_item_models.dart';
 
 class DetailDispaly extends StatelessWidget {
-  const DetailDispaly({
-    super.key,
-    required int index,
-    required List<OnBoardItemModels> pages,
-  }) : _pages = pages;
+  const DetailDispaly({super.key, required this.items});
 
-  final List<OnBoardItemModels> _pages;
-  final int index = 0;
+  final OnBoardItemModels items;
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(24.0),
-      child: Column(
+      child: Column(  
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SvgPicture.asset(_pages[index].image, height: 250),
+          SvgPicture.asset(items.image, height: 250),
           const SizedBox(height: 40),
           Text(
-            _pages[index].title,
+            items.title,
             style: const TextStyle(
               fontSize: 24,
               fontFamily: "Montserrat",
@@ -30,7 +25,7 @@ class DetailDispaly extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           Text(
-            _pages[index].subtittle,
+            items.subtittle,
 
             textAlign: TextAlign.center,
 

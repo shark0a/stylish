@@ -1,10 +1,12 @@
 import 'package:go_router/go_router.dart';
-import 'package:stylish/Features/auth/presentation/screens/login.dart';
+import 'package:stylish/Features/auth/presentation/screens/login_page.dart';
 import 'package:stylish/Features/OnBoardScreen/on_board_screen.dart';
+import 'package:stylish/Features/auth/presentation/screens/signup_page.dart';
 // import 'package:stylish/utils/splash_screen.dart';
 
 abstract class AppRoutes {
   static const kLoginscreen = '/loginscreen';
+  static const kSignUpScreen = '/signupscreen';
 
   static final router = GoRouter(
     routes: [
@@ -12,6 +14,10 @@ abstract class AppRoutes {
       GoRoute(
         path: kLoginscreen,
         builder: (context, state) => const LoginScreen(),
+      ),
+      GoRoute(
+        path: kSignUpScreen,
+        builder: (context, state) => const SignupScreen(),
       ),
     ],
   );

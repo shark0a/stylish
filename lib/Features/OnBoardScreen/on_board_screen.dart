@@ -27,14 +27,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
     OnBoardItemModels(
       image: "assets/icons/shop-2.svg",
-      title: "Choose Products",
+      title: "Make Payment",
       subtittle:
           "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.",
     ),
 
     OnBoardItemModels(
       image: "assets/icons/shop-3.png",
-      title: "Choose Products",
+      title: "Get Your Order",
       subtittle:
           "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.",
     ),
@@ -64,7 +64,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               setState(() => currentIndex = index);
             },
             itemBuilder: (context, index) {
-              return DetailDispaly(pages: _pages, index: index);
+              return DetailDispaly(items: _pages[currentIndex]);
             },
           ),
           OnBoardHeader(currentIndex: currentIndex, pages: _pages),
