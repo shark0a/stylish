@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:stylish/Features/auth/presentation/widgets/auth_header.dart';
 import 'package:stylish/Features/auth/presentation/widgets/or_continue_with_column.dart';
 import 'package:stylish/Features/auth/presentation/widgets/signup/signup_form_filed.dart';
-import 'package:stylish/utils/app_routs.dart';
+import 'package:stylish/core/utils/app_routs.dart';
 
 class SignupScreen extends StatelessWidget {
   const SignupScreen({super.key});
@@ -18,11 +18,10 @@ class SignupScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SafeArea(child: SizedBox(height: 40)),
+              SafeArea(top: true, child: SizedBox(height: 20)),
               AuthHeader(title: "Create an \naccount"),
               SizedBox(height: 30),
               SignupFormFiled(),
-
               SizedBox(height: 15),
               OrContinueWithColumn(
                 onTap: () {
@@ -31,51 +30,10 @@ class SignupScreen extends StatelessWidget {
                 text: 'I Already Have an Account',
                 subtext: 'Login',
               ),
+              SafeArea(bottom: true, child: SizedBox(height: 10)),
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class RegisterAgreegation extends StatelessWidget {
-  const RegisterAgreegation({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Text.rich(
-      textAlign: TextAlign.start,
-      TextSpan(
-        children: [
-          TextSpan(
-            text: 'By clicking the ',
-            style: TextStyle(
-              color: const Color(0xFF676767),
-              fontSize: 12,
-              fontFamily: 'Montserrat',
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-          TextSpan(
-            text: 'Register',
-            style: TextStyle(
-              color: const Color(0xFFFF4B26),
-              fontSize: 12,
-              fontFamily: 'Montserrat',
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-          TextSpan(
-            text: ' button, you agree \nto the public offer',
-            style: TextStyle(
-              color: const Color(0xFF676767),
-              fontSize: 12,
-              fontFamily: 'Montserrat',
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-        ],
       ),
     );
   }

@@ -4,7 +4,7 @@ import 'package:stylish/Features/OnBoardScreen/on_board_item_models.dart';
 import 'package:stylish/Features/OnBoardScreen/widget/detail_dispaly.dart';
 import 'package:stylish/Features/OnBoardScreen/widget/on_board_header.dart';
 import 'package:stylish/Features/OnBoardScreen/widget/on_board_indecator.dart';
-import 'package:stylish/utils/app_routs.dart';
+import 'package:stylish/core/utils/app_routs.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});

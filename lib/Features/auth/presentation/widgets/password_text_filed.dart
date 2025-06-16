@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:stylish/utils/validitor_functions.dart';
+import 'package:stylish/core/utils/validitor_functions.dart';
 
 class PasswordTextFiled extends StatefulWidget {
   const PasswordTextFiled({super.key, required this.hintText});

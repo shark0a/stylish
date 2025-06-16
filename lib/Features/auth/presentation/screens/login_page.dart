@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:stylish/Features/auth/presentation/widgets/auth_header.dart';
 import 'package:stylish/Features/auth/presentation/widgets/login/login_form_fileds.dart';
 import 'package:stylish/Features/auth/presentation/widgets/or_continue_with_column.dart';
-import 'package:stylish/utils/app_routs.dart';
+import 'package:stylish/core/utils/app_routs.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:stylish/Features/auth/data/repo/auth_repo_implementation.dart';
 import 'package:stylish/Features/auth/presentation/widgets/customize_auth_button.dart';
 import 'package:stylish/Features/auth/presentation/widgets/customize_text_filed.dart';
 import 'package:stylish/Features/auth/presentation/widgets/password_text_filed.dart';
-import 'package:stylish/utils/app_routs.dart';
-import 'package:stylish/utils/validitor_functions.dart';
+import 'package:stylish/core/utils/app_routs.dart';
 
 class LoginFormFileds extends StatefulWidget {
   const LoginFormFileds({super.key});
@@ -46,6 +46,7 @@ class _LoginFormFiledsState extends State<LoginFormFileds> {
             title: 'Login',
             onTap: () {
               if (formkey.currentState!.validate()) {}
+              AuthRepoImplementation().signUp('Ahmed@yahoo.com', '111111111');
             },
           ),
         ],

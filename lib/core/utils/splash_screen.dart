@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:stylish/utils/app_routs.dart';
+import 'package:stylish/core/utils/app_routs.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
