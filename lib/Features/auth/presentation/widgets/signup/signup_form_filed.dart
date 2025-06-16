@@ -54,7 +54,7 @@ class SignupFormFiled extends StatelessWidget {
           SizedBox(height: 19),
           RegisterAgreegation(),
           SizedBox(height: 40),
-          CustomizeAuthButton(
+          CustomizeButton(
             title: 'Create Account',
             onTap: () {
               if (formkey.currentState!.validate()) {}

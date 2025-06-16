@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 
-class CustomizeAuthButton extends StatelessWidget {
-  const CustomizeAuthButton({
-    super.key,
-    required this.onTap,
-    required this.title,
-  });
+class CustomizeButton extends StatelessWidget {
+  const CustomizeButton({super.key, required this.onTap, required this.title});
   final void Function()? onTap;
   final String title;
   @override
