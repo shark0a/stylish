@@ -19,7 +19,7 @@ class LoginScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SafeArea(child: const SizedBox(height: 40)),
-              AuthHeader(title: "Welcome \nBack!\n"),
+              AuthHeader(title: "Welcome \nBack!\n" ,color: Colors.black,),
               SizedBox(height: 30),
               LoginFormFileds(),
               SizedBox(height: 30),

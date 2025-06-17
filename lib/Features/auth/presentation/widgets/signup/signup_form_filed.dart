@@ -25,7 +25,7 @@ class SignupFormFiled extends StatelessWidget {
           CustomizeButton(
             title: 'Create Account',
             onTap: () {
-              // if (formkey.currentState!.validate()) {}
+              if (formkey.currentState!.validate()) {}
             },
           ),
         ],

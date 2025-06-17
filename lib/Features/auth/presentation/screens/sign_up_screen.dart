@@ -18,8 +18,8 @@ class SignupScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SafeArea(top: true, child: SizedBox(height: 20)),
-              AuthHeader(title: "Create an \naccount"),
+              SafeArea(top: true, child: SizedBox()),
+              AuthHeader(title: "Create an \naccount", color: Colors.black),
               SizedBox(height: 30),
               SignupFormFiled(),
               SizedBox(height: 15),
@@ -30,7 +30,7 @@ class SignupScreen extends StatelessWidget {
                 text: 'I Already Have an Account',
                 subtext: 'Login',
               ),
-              SafeArea(bottom: true, child: SizedBox(height: 10)),
+              SizedBox(height: 10),
             ],
           ),
         ),

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class AuthHeader extends StatelessWidget {
-  const AuthHeader({super.key, required this.title});
+  const AuthHeader({super.key, required this.title, required this.color});
   final String title;
+  final Color color;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -11,7 +12,7 @@ class AuthHeader extends StatelessWidget {
       child: Text(
         title,
         style: TextStyle(
-          color: Colors.black,
+          color: color,
           fontSize: 36,
           fontFamily: 'Montserrat',
           fontWeight: FontWeight.w700,

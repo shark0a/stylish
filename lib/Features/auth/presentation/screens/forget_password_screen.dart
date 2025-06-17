@@ -16,7 +16,7 @@ class ForgetPasswordScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SafeArea(top: true, child: SizedBox(height: 40)),
-            AuthHeader(title: 'Forgot\npassword?'),
+            AuthHeader(title: 'Forgot\npassword?', color: Colors.black),
             SizedBox(height: 30),
             CustomizeTextFiled(
               hintText: 'Enter your email address',
