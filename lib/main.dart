@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:stylish/core/utils/app_routs.dart';
+import 'package:stylish/core/utils/services_locator.dart';
 import 'package:stylish/firebase_options.dart';
 
 void main() async {
@@ -13,6 +14,8 @@ void main() async {
       statusBarIconBrightness: Brightness.dark,
     ),
   );
+  setupServiceLocator();
+
   runApp(const StylishApp());
 }
 

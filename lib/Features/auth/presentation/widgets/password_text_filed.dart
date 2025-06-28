@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:stylish/core/utils/validitor_functions.dart';
 
 class PasswordTextFiled extends StatefulWidget {
-  const PasswordTextFiled({super.key, required this.hintText});
+  const PasswordTextFiled({super.key, required this.hintText, this.controller});
   final String hintText;
-
   @override
   State<PasswordTextFiled> createState() => _PasswordTextFiledState();
+  final TextEditingController? controller;
 }
 
 bool obscure = true;
@@ -15,6 +15,7 @@ class _PasswordTextFiledState extends State<PasswordTextFiled> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: widget.controller,
       obscureText: obscure ? true : false,
       validator: ValiditorFunctions.validatePassword,
       onTapOutside: (event) {

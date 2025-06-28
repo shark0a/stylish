@@ -5,13 +5,17 @@ class CustomizeTextFiled extends StatelessWidget {
   const CustomizeTextFiled({
     super.key,
     required this.hintText,
+
     required this.icon,
+    this.controller,
   });
   final String hintText;
   final IconData icon;
+  final TextEditingController? controller;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
       autovalidateMode: AutovalidateMode.onUnfocus,
       validator: ValiditorFunctions.validateEmail,
       onTapOutside: (event) {

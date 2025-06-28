@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:go_router/go_router.dart';
-import 'package:stylish/core/utils/app_routs.dart';
 
 class GetStartScreen extends StatelessWidget {
   const GetStartScreen({super.key});
@@ -72,9 +70,7 @@ class GetStartScreen extends StatelessWidget {
                     ),
                     Spacer(),
                     ElevatedButton(
-                      onPressed: () {
-                        context.go(AppRoutes.kOnBoardScreen);
-                      },
+                      onPressed: () {},
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xffF83758),
                         fixedSize: Size(279, 55),

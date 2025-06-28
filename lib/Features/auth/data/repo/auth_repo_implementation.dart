@@ -1,49 +1,60 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:stylish/Features/auth/data/repo/auth_repo.dart';
 
 class AuthRepoImplementation implements AuthRepo {
   final FirebaseAuth _firebaseAuth;
 
   AuthRepoImplementation({FirebaseAuth? firebaseAuth})
-      : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance;
+    : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance;
 
   @override
-  Future<void> login(String email, String password) async {
+  Future<void> login(
+    TextEditingController loginEmailController,
+    TextEditingController loginPasswordController,
+  ) async {
     try {
       await _firebaseAuth.signInWithEmailAndPassword(
-        email: email,
-        password: password,
+        email: loginEmailController.text,
+        password: loginPasswordController.text,
       );
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
         case 'user-not-found':
-          throw Exception('No user found for that email.');
+          throw 'No user found for that email.';
         case 'wrong-password':
-          throw Exception('Wrong password provided.');
+          throw 'Wrong password provided.';
+        case 'invalid-credential':
+          throw 'Check your email or password.';
         default:
-          throw Exception('Login error: ${e.message}');
+          throw 'Login error: ${e.message}';
       }
+    } catch (e) {
+      throw 'Unexpected error: ${e.toString()}';
     }
   }
 
   @override
-  Future<void> signUp(String email, String password) async {
+  Future<void> signUp(
+    TextEditingController signUpEmailController,
+    TextEditingController signUpPasswordController,
+  ) async {
     try {
       await _firebaseAuth.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
+        email: signUpEmailController.text,
+        password: signUpPasswordController.text,
       );
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
         case 'weak-password':
-          throw Exception('The password provided is too weak.');
+          throw 'The password provided is too weak.';
         case 'email-already-in-use':
-          throw Exception('The account already exists for that email.');
+          throw 'The account already exists for that email.';
         default:
-          throw Exception('Signup error: ${e.message}');
+          throw 'Signup error: ${e.message}';
       }
     } catch (e) {
-      throw Exception('Unexpected error: $e');
+      throw 'Unexpected error: $e';
     }
   }
 }
