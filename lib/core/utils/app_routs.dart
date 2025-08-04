@@ -1,7 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:stylish/Features/Home/presentation/screens/home_page.dart';
 import 'package:stylish/Features/OnBoardScreen/screens/get_start_screen.dart';
-import 'package:stylish/Features/auth/data/manager/auth_cubit.dart';
+import 'package:stylish/Features/auth/data/manager/cubit/auth_cubit.dart';
 import 'package:stylish/Features/auth/data/repo/auth_repo.dart';
 import 'package:stylish/Features/auth/presentation/screens/forget_password_screen.dart';
 import 'package:stylish/Features/auth/presentation/screens/login_screen.dart';
@@ -10,7 +11,7 @@ import 'package:stylish/Features/auth/presentation/screens/sign_up_screen.dart';
 import 'package:stylish/core/utils/services_locator.dart';
 
 abstract class AppRoutes {
-  // static const kOnBoardScreen = '/onboardscreen';
+  static const kHomePage = '/homepage';
   static const kGetStartScreen = '/getstartscreen';
   static const kLoginscreen = '/loginscreen';
   static const kSignUpScreen = '/signupscreen';
@@ -42,6 +43,10 @@ abstract class AppRoutes {
       GoRoute(
         path: kForgetPasswordScreen,
         builder: (context, state) => const ForgetPasswordScreen(),
+      ),
+      GoRoute(
+        path: kHomePage,
+        builder: (context, state) => const HomePage(),
       ),
     ],
   );

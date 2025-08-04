@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
+import 'package:stylish/core/utils/app_routs.dart';
 
 class GetStartScreen extends StatelessWidget {
   const GetStartScreen({super.key});
@@ -8,15 +10,18 @@ class GetStartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: AnnotatedRegion(
-        value: SystemUiOverlayStyle(statusBarIconBrightness: Brightness.light),
+        value: SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          statusBarBrightness: Brightness.light,
+          systemNavigationBarColor: Colors.transparent,
+        ),
 
         child: Stack(
           children: [
-            Positioned(
+            Positioned.fill(
               child: Image(
                 image: AssetImage('assets/icons/GetStart_backG.png'),
                 fit: BoxFit.cover,
-                width: double.infinity,
               ),
             ),
             Positioned(
@@ -70,7 +75,9 @@ class GetStartScreen extends StatelessWidget {
                     ),
                     Spacer(),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        context.go(AppRoutes.kHomePage);
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xffF83758),
                         fixedSize: Size(279, 55),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:stylish/Features/auth/data/manager/auth_cubit.dart';
+import 'package:stylish/Features/auth/data/manager/cubit/auth_cubit.dart';
 import 'package:stylish/Features/auth/presentation/widgets/customize_auth_button.dart';
 import 'package:stylish/Features/auth/presentation/widgets/customize_text_filed.dart';
 import 'package:stylish/Features/auth/presentation/widgets/password_text_filed.dart';
@@ -18,7 +18,6 @@ class LoginFormFileds extends StatelessWidget {
     final TextEditingController loginEmailController = TextEditingController();
     final TextEditingController loginPasswordController =
         TextEditingController();
-
     return BlocConsumer<AuthCubit, AuthCubitState>(
       listener: (context, state) {
         if (state is AuthCubitSuccess) {
