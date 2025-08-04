@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stylish/generated/l10n.dart'; // تأكد المسار ده صح حسب مشروعك
 
 class RegisterAgreegation extends StatelessWidget {
   const RegisterAgreegation({super.key});
@@ -10,27 +11,27 @@ class RegisterAgreegation extends StatelessWidget {
       TextSpan(
         children: [
           TextSpan(
-            text: 'By clicking the ',
-            style: TextStyle(
-              color: const Color(0xFF676767),
+            text: S.of(context).RegisterAgreementPart1,
+            style: const TextStyle(
+              color: Color(0xFF676767),
               fontSize: 12,
               fontFamily: 'Montserrat',
               fontWeight: FontWeight.w400,
             ),
           ),
           TextSpan(
-            text: 'Register',
-            style: TextStyle(
-              color: const Color(0xFFFF4B26),
+            text: S.of(context).RegisterAgreementButton,
+            style: const TextStyle(
+              color: Color(0xFFFF4B26),
               fontSize: 12,
               fontFamily: 'Montserrat',
               fontWeight: FontWeight.w400,
             ),
           ),
           TextSpan(
-            text: ' button, you agree \nto the public offer',
-            style: TextStyle(
-              color: const Color(0xFF676767),
+            text: S.of(context).RegisterAgreementPart2,
+            style: const TextStyle(
+              color: Color(0xFF676767),
               fontSize: 12,
               fontFamily: 'Montserrat',
               fontWeight: FontWeight.w400,

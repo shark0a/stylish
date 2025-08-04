@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:stylish/Features/auth/data/manager/cubit/auth_cubit.dart';
+import 'package:stylish/Features/auth/presentation/manager/cubit/auth_cubit.dart';
 import 'package:stylish/Features/auth/presentation/widgets/customize_auth_button.dart';
 import 'package:stylish/Features/auth/presentation/widgets/customize_text_filed.dart';
 import 'package:stylish/Features/auth/presentation/widgets/password_text_filed.dart';
 import 'package:stylish/Features/auth/presentation/widgets/signup/register_agreegation.dart';
 import 'package:stylish/core/utils/app_routs.dart';
 import 'package:stylish/core/utils/helper/show_snak_helper.dart';
+import 'package:stylish/generated/l10n.dart';
 
 class SignupFormFiled extends StatelessWidget {
   const SignupFormFiled({super.key});
@@ -27,7 +28,7 @@ class SignupFormFiled extends StatelessWidget {
           showErrorSnackBar(context, state.errMessage);
         }
         if (state is AuthCubitSuccess) {
-          showSuccessSnackBar(context, "Register Successful");
+          showSuccessSnackBar(context, S.of(context).AuthCubitSignupSuccess);
           context.go(AppRoutes.kLoginscreen);
           signUpEmailController.clear();
           signUpPasswordController.clear();
@@ -42,18 +43,18 @@ class SignupFormFiled extends StatelessWidget {
             children: [
               CustomizeTextFiled(
                 controller: signUpEmailController,
-                hintText: 'Username or Email',
+                hintText: S.of(context).UsernameorEmail,
                 icon: Icons.person,
               ),
               const SizedBox(height: 30),
               PasswordTextFiled(
                 controller: signUpPasswordController,
-                hintText: 'Password',
+                hintText: S.of(context).PasswordTextFiled,
               ),
               const SizedBox(height: 30),
               PasswordTextFiled(
                 controller: signUpPasswordConfirmController,
-                hintText: 'Confirm Password',
+                hintText: S.of(context).PasswordTextFiledConfirm,
               ),
               const SizedBox(height: 19),
               const RegisterAgreegation(),
@@ -64,7 +65,7 @@ class SignupFormFiled extends StatelessWidget {
                 )
               else
                 CustomizeButton(
-                  title: 'Create Account',
+                  title: S.of(context).CreateAccountButton,
                   onTap: () {
                     if (formkey.currentState!.validate()) {
                       authCubit.signUp(

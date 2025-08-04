@@ -17,3 +17,21 @@ class AuthCubitFailure extends AuthCubitState {
   @override
   String toString() => 'AuthCubitFailure: $errMessage';
 }
+
+class AuthCubitThemeChanged extends AuthCubitState {
+  final ThemeMode themeMode;
+
+  AuthCubitThemeChanged(this.themeMode);
+
+  @override
+  String toString() => 'AuthCubitThemeChanged: $themeMode';
+}
+
+class AuthCubitLocaleChanged extends AuthCubitState {
+  final Locale locale;
+
+  AuthCubitLocaleChanged(this.locale);
+
+  @override
+  String toString() => 'AuthCubitLocaleChanged: $locale';
+}

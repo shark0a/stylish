@@ -8,7 +8,7 @@ class AuthHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 185,
-      height: 83,
+      height: 95,
       child: Text(
         title,
         style: TextStyle(

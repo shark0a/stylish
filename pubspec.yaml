@@ -22,10 +22,11 @@ dependencies:
   flutter_bloc: ^9.1.1
   firebase_core: ^3.14.0
   firebase_auth: ^5.6.0
-  get_it: ^8.0.3
+  get_it: ^8.2.0
   flutter_localizations:
     sdk: flutter
   intl: any
+  provider: ^6.1.5
 
 dev_dependencies:
   flutter_test:
@@ -34,7 +35,6 @@ dev_dependencies:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
-
 # The following section is specific to Flutter packages.
 flutter:
 
@@ -46,11 +46,11 @@ flutter:
   assets:
     - assets/icons/
 fonts:
-    - family: Montserrat
-      fonts:
-        - asset: assets/fonts/Montserrat-Medium.ttf
-        - asset: assets/fonts/Montserrat-Regular.ttf
-          weight: 500
+  - family: Montserrat
+    fonts:
+      - asset: assets/fonts/Montserrat-Medium.ttf
+      - asset: assets/fonts/Montserrat-Regular.ttf
+        weight: 500
 flutter_native_splash:
   color: "#ffffff"
   image: assets/icons/splash_icon.png
@@ -59,7 +59,6 @@ flutter_native_splash:
 
   android_gravity: center
   ios_content_mode: scaleAspectFit
-
 
 flutter_launcher_icons:
   android: "launcher_icon"
@@ -78,3 +77,5 @@ flutter_launcher_icons:
   macos:
     generate: true
     image_path: "assets/icons/splash_icon.png"
+flutter_intl:
+  enabled: true

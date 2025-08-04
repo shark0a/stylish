@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:stylish/Features/auth/data/manager/cubit/auth_cubit.dart';
+import 'package:stylish/Features/auth/presentation/manager/cubit/auth_cubit.dart';
 import 'package:stylish/Features/auth/presentation/widgets/customize_auth_button.dart';
 import 'package:stylish/Features/auth/presentation/widgets/customize_text_filed.dart';
 import 'package:stylish/Features/auth/presentation/widgets/password_text_filed.dart';
 import 'package:stylish/core/utils/app_routs.dart';
 import 'package:stylish/core/utils/helper/show_snak_helper.dart';
+import 'package:stylish/generated/l10n.dart';
 
 class LoginFormFileds extends StatelessWidget {
   const LoginFormFileds({super.key});
@@ -23,7 +24,7 @@ class LoginFormFileds extends StatelessWidget {
         if (state is AuthCubitSuccess) {
           loginEmailController.clear();
           loginPasswordController.clear();
-          showSuccessSnackBar(context, "Login Sucess");
+          showSuccessSnackBar(context, S.of(context).AuthCubitLoginSuccess);
           context.go(AppRoutes.kGetStartScreen);
         }
         if (state is AuthCubitFailure) {
@@ -37,21 +38,21 @@ class LoginFormFileds extends StatelessWidget {
             children: [
               CustomizeTextFiled(
                 controller: loginEmailController,
-                hintText: 'Username or Email',
+                hintText: S.of(context).UsernameorEmail,
                 icon: Icons.person,
               ),
               const SizedBox(height: 30),
               PasswordTextFiled(
                 controller: loginPasswordController,
-                hintText: 'Password',
+                hintText: S.of(context).PasswordTextFiled,
               ),
               const SizedBox(height: 15),
               GestureDetector(
                 onTap: () => context.push(AppRoutes.kForgetPasswordScreen),
-                child: const SizedBox(
+                child: SizedBox(
                   width: 390,
                   child: Text(
-                    'Forgot Password?',
+                    S.of(context).ForgotPassword,
                     textAlign: TextAlign.right,
                     style: TextStyle(
                       color: Color(0xFFF73658),
@@ -67,7 +68,7 @@ class LoginFormFileds extends StatelessWidget {
                 const CircularProgressIndicator(color: Color(0xffF83758))
               else
                 CustomizeButton(
-                  title: 'Login',
+                  title: S.of(context).LoginButtonTitle,
                   onTap: () {
                     if (formkey.currentState!.validate()) {
                       authCubit.login(

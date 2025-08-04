@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stylish/Features/auth/presentation/widgets/login_or_creare_row.dart';
 import 'package:stylish/Features/auth/presentation/widgets/social_row.dart';
+import 'package:stylish/generated/l10n.dart';
 
 class OrContinueWithColumn extends StatelessWidget {
   const OrContinueWithColumn({
@@ -19,7 +20,7 @@ class OrContinueWithColumn extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          '- OR Continue with -',
+          S.of(context).ORContinuewith,
           textAlign: TextAlign.center,
           style: TextStyle(
             color: const Color(0xFF575757),
