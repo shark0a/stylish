@@ -45,6 +45,7 @@ flutter:
 
   assets:
     - assets/icons/
+    
 fonts:
   - family: Montserrat
     fonts:
@@ -79,3 +80,4 @@ flutter_launcher_icons:
     image_path: "assets/icons/splash_icon.png"
 flutter_intl:
   enabled: true
+  use_deferred_loading: false

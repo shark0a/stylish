@@ -16,9 +16,10 @@ class HomePage extends StatelessWidget {
             shape: BoxShape.circle,
             color: const Color(0xffF2F2F2),
           ),
-          child: const Icon(Icons.menu, color: Colors.black),
+          child: SvgPicture.asset('assets/icons/drawer_icon.svg'),
         ),
         centerTitle: true,
+        
         title: SvgPicture.asset('assets/icons/app-bar-icon.svg'),
         actions: [
           Padding(

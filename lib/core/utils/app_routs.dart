@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 import 'package:stylish/Features/Home/presentation/screens/home_page.dart';
 import 'package:stylish/Features/OnBoardScreen/screens/get_start_screen.dart';
 import 'package:stylish/Features/auth/presentation/manager/cubit/auth_cubit.dart';
-import 'package:stylish/Features/auth/data/repo/auth_repo.dart';
 import 'package:stylish/Features/auth/presentation/screens/forget_password_screen.dart';
 import 'package:stylish/Features/auth/presentation/screens/login_screen.dart';
 import 'package:stylish/Features/OnBoardScreen/screens/on_board_screen.dart';

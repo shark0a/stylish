@@ -14,6 +14,7 @@ class AppSettingsNotifier extends ChangeNotifier {
             : const Locale('en', 'US');
     notifyListeners();
   }
+  
 
   void toggleTheme() {
     _themeMode =
