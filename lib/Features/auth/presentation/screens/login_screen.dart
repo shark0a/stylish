@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
-import 'package:stylish/Features/auth/presentation/widgets/app_bar_button.dart';
 import 'package:stylish/Features/auth/presentation/widgets/auth_header.dart';
 import 'package:stylish/Features/auth/presentation/widgets/login/app_bar_buttons.dart';
 import 'package:stylish/Features/auth/presentation/widgets/login/login_form_fileds.dart';
 import 'package:stylish/Features/auth/presentation/widgets/or_continue_with_column.dart';
-import 'package:stylish/core/provider/app_setting_provider.dart';
 import 'package:stylish/core/utils/app_routs.dart';
 import 'package:stylish/generated/l10n.dart';
 
