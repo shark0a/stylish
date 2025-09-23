@@ -79,7 +79,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             top: 60,
             right: 24,
             child: TextButton(
-              onPressed: () => context.go(AppRoutes.kLoginscreen),
+              onPressed: () async {
+                await sl.get<SharedPref>().setBool(
+                  SharedPrefKey.isfirstTime,
+                  true,
+                );
+                if (!context.mounted) return;
+                context.go(AppRoutes.kLoginscreen);
+              },
               child: const Text(
                 'Skip',
                 style: TextStyle(

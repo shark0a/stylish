@@ -8,6 +8,7 @@ import 'package:stylish/Features/auth/presentation/screens/login_screen.dart';
 import 'package:stylish/Features/OnBoardScreen/screens/on_board_screen.dart';
 import 'package:stylish/Features/auth/presentation/screens/sign_up_screen.dart';
 import 'package:stylish/core/service/services_locator.dart';
+import 'package:stylish/core/utils/splash_screen.dart';
 
 abstract class AppRoutes {
   static const kHomePage = '/homepage';
@@ -15,10 +16,15 @@ abstract class AppRoutes {
   static const kLoginscreen = '/loginscreen';
   static const kSignUpScreen = '/signupscreen';
   static const kForgetPasswordScreen = '/forgetpasswordscreen';
+  static const kOnBoardingScreen = '/OnBoardingScreen';
 
   static final router = GoRouter(
     routes: [
-      GoRoute(path: '/', builder: (context, state) => const OnboardingScreen()),
+      GoRoute(path: '/', builder: (context, state) => const SplashScreen()),
+      GoRoute(
+        path: kOnBoardingScreen,
+        builder: (context, state) => const OnboardingScreen(),
+      ),
       GoRoute(
         path: kGetStartScreen,
         builder: (context, state) => const GetStartScreen(),

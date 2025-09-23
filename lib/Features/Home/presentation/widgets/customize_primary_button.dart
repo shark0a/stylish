@@ -2,15 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:stylish/core/utils/app_styles.dart';
 
 class CustomizePrimaryButton extends StatelessWidget {
-  const CustomizePrimaryButton({super.key, required this.title});
+  const CustomizePrimaryButton({super.key, required this.title, this.colorBG});
   final String title;
+  final Color? colorBG;
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 10),
+      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
       decoration: ShapeDecoration(
+        color: colorBG ?? Colors.transparent,
         shape: RoundedRectangleBorder(
-          side: BorderSide(color: AppStyles.primaryBackgroungColor, width: 1.5),
+          side: BorderSide(
+            color: colorBG ?? AppStyles.primaryBackgroungColor,
+            width: 1.5,
+          ),
           borderRadius: BorderRadius.circular(8),
         ),
       ),
