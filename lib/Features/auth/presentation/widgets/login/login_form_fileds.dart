@@ -5,8 +5,11 @@ import 'package:stylish/Features/auth/presentation/manager/cubit/auth_cubit.dart
 import 'package:stylish/Features/auth/presentation/widgets/customize_auth_button.dart';
 import 'package:stylish/Features/auth/presentation/widgets/customize_text_filed.dart';
 import 'package:stylish/Features/auth/presentation/widgets/password_text_filed.dart';
+import 'package:stylish/core/service/services_locator.dart';
 import 'package:stylish/core/utils/app_routs.dart';
+import 'package:stylish/core/utils/helper/shared_pref_key.dart';
 import 'package:stylish/core/utils/helper/show_snak_helper.dart';
+import 'package:stylish/core/utils/shared_pref.dart';
 import 'package:stylish/generated/l10n.dart';
 
 class LoginFormFileds extends StatelessWidget {
@@ -25,6 +28,7 @@ class LoginFormFileds extends StatelessWidget {
           loginEmailController.clear();
           loginPasswordController.clear();
           showSuccessSnackBar(context, S.of(context).AuthCubitLoginSuccess);
+          sl.get<SharedPref>().setBool(SharedPrefKey.isLogin, true);
           context.go(AppRoutes.kGetStartScreen);
         }
         if (state is AuthCubitFailure) {

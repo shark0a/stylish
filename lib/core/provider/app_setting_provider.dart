@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class AppSettingsNotifier extends ChangeNotifier {
+class AppSettingsNotifierProvider extends ChangeNotifier {
   Locale _locale = const Locale('en', 'US');
   ThemeMode _themeMode = ThemeMode.light;
 
@@ -14,7 +14,6 @@ class AppSettingsNotifier extends ChangeNotifier {
             : const Locale('en', 'US');
     notifyListeners();
   }
-  
 
   void toggleTheme() {
     _themeMode =

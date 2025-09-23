@@ -7,7 +7,7 @@ import 'package:stylish/Features/auth/presentation/screens/forget_password_scree
 import 'package:stylish/Features/auth/presentation/screens/login_screen.dart';
 import 'package:stylish/Features/OnBoardScreen/screens/on_board_screen.dart';
 import 'package:stylish/Features/auth/presentation/screens/sign_up_screen.dart';
-import 'package:stylish/core/utils/services_locator.dart';
+import 'package:stylish/core/service/services_locator.dart';
 
 abstract class AppRoutes {
   static const kHomePage = '/homepage';

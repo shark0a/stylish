@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:stylish/Features/auth/presentation/widgets/app_bar_button.dart';
 import 'package:stylish/Features/auth/presentation/widgets/auth_header.dart';
+import 'package:stylish/Features/auth/presentation/widgets/login/app_bar_buttons.dart';
 import 'package:stylish/Features/auth/presentation/widgets/login/login_form_fileds.dart';
 import 'package:stylish/Features/auth/presentation/widgets/or_continue_with_column.dart';
 import 'package:stylish/core/provider/app_setting_provider.dart';
@@ -41,33 +42,6 @@ class LoginScreen extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class AppBarButtons extends StatelessWidget {
-  const AppBarButtons({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        AppBarButton(
-          onTap: () {
-            context.read<AppSettingsNotifier>().toggleLocale();
-          },
-          fontsize: 20,
-          title: S.of(context).ChangeLanguage,
-        ),
-        AppBarButton(
-          fontsize: 20,
-          onTap: () {
-            context.read<AppSettingsNotifier>().toggleTheme();
-          },
-          title: S.of(context).ChangeMode,
-        ),
-      ],
     );
   }
 }

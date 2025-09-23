@@ -4,7 +4,10 @@ import 'package:stylish/Features/OnBoardScreen/on_board_item_models.dart';
 import 'package:stylish/Features/OnBoardScreen/widget/detail_dispaly.dart';
 import 'package:stylish/Features/OnBoardScreen/widget/on_board_header.dart';
 import 'package:stylish/Features/OnBoardScreen/widget/on_board_indecator.dart';
+import 'package:stylish/core/service/services_locator.dart';
 import 'package:stylish/core/utils/app_routs.dart';
+import 'package:stylish/core/utils/helper/shared_pref_key.dart';
+import 'package:stylish/core/utils/shared_pref.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -47,7 +50,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         curve: Curves.slowMiddle,
       );
     } else {
-      context.go(AppRoutes.kLoginscreen);
+      if ((sl.get<SharedPref>().getBool(SharedPrefKey.isLogin)) ?? false) {
+        context.go(AppRoutes.kHomePage);
+      } else {
+        context.go(AppRoutes.kLoginscreen);
+      }
     }
   }
 
