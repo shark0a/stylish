@@ -1,9 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:stylish/Features/Home/data/models/product_model/product_response_model.dart';
+import 'package:stylish/Features/Home/domain/repo/home_repo.dart';
+import 'package:stylish/core/utils/helper/error/faliure.dart';
 
 class HomeProvider extends ChangeNotifier {
+  final HomeRepo _homeRepo;
   int offerCardIndexIndicator = 0;
   void togglefferCardIndexIndicator(int index) {
     offerCardIndexIndicator = index;
+    notifyListeners();
+  }
+
+  // bottom navigation bar index controll
+  int bottomNavigationbarIndex = 0;
+  void setbottomNavigationbarIndex(int index) {
+    bottomNavigationbarIndex = index;
     notifyListeners();
   }
 
@@ -35,5 +46,86 @@ class HomeProvider extends ChangeNotifier {
       currentIndex--;
       _animateToIndex();
     }
+  }
+  //fetch data
+
+  final List<ProductModel> _products = [];
+  List<ProductModel> get products => List.unmodifiable(_products);
+
+  bool _isLoading = false;
+  bool get isLoading => _isLoading;
+
+  bool _isLoadingMore = false;
+  bool get isLoadingMore => _isLoadingMore;
+
+  bool _hasMore = true;
+  bool get hasMore => _hasMore;
+
+  String? _errorMessage;
+  String? get errorMessage => _errorMessage;
+
+  int _limit = 10;
+  int _skip = 0;
+
+  HomeProvider({required HomeRepo homeRepo}) : _homeRepo = homeRepo;
+
+  Future<void> fetchProducts({int limit = 10}) async {
+    _isLoading = true;
+    _errorMessage = null;
+    _products.clear();
+    _limit = limit;
+    _skip = 0;
+    _hasMore = true;
+    notifyListeners();
+
+    final result = await _homeRepo.fetchProducts(limit: _limit, skip: _skip);
+
+    result.fold(
+      (Failures failure) {
+        _errorMessage = failure.errMessage;
+        _isLoading = false;
+        notifyListeners();
+      },
+      (List<ProductModel> fetched) {
+        _products.addAll(fetched);
+        _skip += fetched.length;
+        _hasMore = fetched.length == _limit;
+        _isLoading = false;
+        notifyListeners();
+      },
+    );
+  }
+
+  Future<void> loadMore() async {
+    if (_isLoading || _isLoadingMore || !_hasMore) return;
+
+    _isLoadingMore = true;
+    notifyListeners();
+
+    final result = await _homeRepo.fetchProducts(limit: _limit, skip: _skip);
+
+    result.fold(
+      (Failures failure) {
+        _errorMessage = failure.errMessage;
+        _isLoadingMore = false;
+        notifyListeners();
+      },
+      (List<ProductModel> fetched) {
+        if (fetched.isEmpty) {
+          _hasMore = false;
+        } else {
+          _products.addAll(fetched);
+          _skip += fetched.length;
+          _hasMore = fetched.length == _limit;
+        }
+        _isLoadingMore = false;
+        notifyListeners();
+      },
+    );
+  }
+
+  void clearError() {
+    _errorMessage = null;
+    notifyListeners();
   }
 }
