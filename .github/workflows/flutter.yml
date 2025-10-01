@@ -2,11 +2,9 @@ name: Flutter CI/CD - Build Release APK
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   pull_request:
-    branches:
-      - main
+    branches: [ main ]
 
 permissions:
   contents: read
@@ -33,13 +31,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pub-
 
-      - name: Setup Flutter SDK (specific version)
+      - name: Setup Flutter SDK (specific version with Dart >= 3.7.2)
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.10.5'   # اختر رقم إصدار موجود، أو غيّره حسب رغبتك
+          flutter-version: '3.29.3'   # نسخة Flutter التي تضمن Dart 3.7.2
           architecture: 'x64'
 
-      - name: Flutter --version
+      - name: Confirm flutter + dart version
         run: flutter --version
 
       - name: Install dependencies (flutter pub get)
@@ -47,7 +45,6 @@ jobs:
 
       - name: Run tests (optional)
         run: echo "Skipping tests (enable if needed)"
-        # to enable tests: replace the above with: run: flutter test
 
       - name: Build release APK
         run: |

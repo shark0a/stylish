@@ -13,6 +13,7 @@ void main() async {
     SystemUiOverlayStyle(
       statusBarColor: Colors.white,
       statusBarIconBrightness: Brightness.dark,
+      
     ),
   );
   runApp(const StylishApp());
