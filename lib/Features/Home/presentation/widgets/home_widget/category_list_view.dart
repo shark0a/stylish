@@ -15,13 +15,11 @@ class CategoryListView extends StatelessWidget {
       ),
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-alignment: Alignment.centerLeft,
+        alignment: Alignment.centerLeft,
         decoration: ShapeDecoration(
           color: AppStyles.primaryBackgroungColor,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadiusGeometry.horizontal(
-              left: Radius.circular(10),
-            ),
+            borderRadius: BorderRadius.horizontal(left: Radius.circular(10)),
           ),
         ),
         child: Row(

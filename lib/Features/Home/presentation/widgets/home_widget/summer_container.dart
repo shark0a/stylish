@@ -14,9 +14,7 @@ class SummerContainer extends StatelessWidget {
         children: [
           ClipRRect(
             clipBehavior: Clip.hardEdge,
-            borderRadius: BorderRadiusGeometry.vertical(
-              top: Radius.circular(8),
-            ),
+            borderRadius: BorderRadius.vertical(top: Radius.circular(8)),
             child: Image.asset(
               "assets/icons/summerImage.png",
               height: 204,

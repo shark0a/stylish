@@ -10,9 +10,7 @@ class SortContainer extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: ShapeDecoration(
         color: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadiusGeometry.circular(8),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,

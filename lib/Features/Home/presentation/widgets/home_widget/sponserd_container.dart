@@ -30,9 +30,7 @@ class SponserdContainer extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             ClipRRect(
-              borderRadius: BorderRadiusGeometry.horizontal(
-                left: Radius.circular(8),
-              ),
+              borderRadius: BorderRadius.horizontal(left: Radius.circular(8)),
               clipBehavior: Clip.hardEdge,
               child: Image.asset(
                 "assets/icons/sponserd.png",

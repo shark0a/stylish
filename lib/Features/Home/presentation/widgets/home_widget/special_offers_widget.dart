@@ -12,9 +12,7 @@ class SpecialOffersWidget extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 8, vertical: 12),
         decoration: ShapeDecoration(
           color: AppStyles.primaryBackgroungColor,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadiusGeometry.circular(6),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
         ),
         child: Row(
           children: [
