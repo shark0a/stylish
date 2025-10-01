@@ -33,11 +33,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pub-
 
-      - name: Setup Flutter SDK
+      - name: Setup Flutter SDK (specific version)
         uses: subosito/flutter-action@v2
         with:
-          channel: 'stable'            # or specify a version: '3.7.0'
-          flutter-version: 'stable'   # optional, keeps it on stable channel
+          flutter-version: '3.10.5'   # اختر رقم إصدار موجود، أو غيّره حسب رغبتك
+          architecture: 'x64'
 
       - name: Flutter --version
         run: flutter --version
@@ -46,9 +46,8 @@ jobs:
         run: flutter pub get
 
       - name: Run tests (optional)
-        # - you can enable tests if you have them:
-        # run: flutter test
         run: echo "Skipping tests (enable if needed)"
+        # to enable tests: replace the above with: run: flutter test
 
       - name: Build release APK
         run: |
