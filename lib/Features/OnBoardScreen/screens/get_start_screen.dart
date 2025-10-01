@@ -82,7 +82,7 @@ class GetStartScreen extends StatelessWidget {
                         backgroundColor: Color(0xffF83758),
                         fixedSize: Size(279, 55),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadiusGeometry.circular(4),
+                          borderRadius: BorderRadius.circular(4),
                         ),
                       ),
                       child: Text(

@@ -15,7 +15,7 @@ class CategoryListView extends StatelessWidget {
       ),
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-        alignment: AlignmentGeometry.centerLeft,
+alignment: Alignment.centerLeft,
         decoration: ShapeDecoration(
           color: AppStyles.primaryBackgroungColor,
           shape: RoundedRectangleBorder(
