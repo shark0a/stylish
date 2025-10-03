@@ -1,64 +1,50 @@
-name: Flutter CI/CD - Build & Distribute
+name: Flutter CI/CD
 
 on:
   push:
-    branches: 
-      - main 
+    branches:
+      - main
+      - publish_to_firebase
+     
   pull_request:
-    branches: 
-      - main 
-
-permissions:
-  contents: read
-  id-token: write
+    branches:
+      - main
+      - publish_to_firebase
 
 jobs:
-  build-and-distribute:
+  build:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
 
-      - name: Set up JDK 17
+    steps:
+      - name: Checkout My Code 
+        uses: actions/checkout@v3
+
+      - name: Setup Java 17
         uses: actions/setup-java@v3
         with:
-          distribution: 'temurin'
+          distribution: 'temurin' # Use the Eclipse Temurin distribution
           java-version: '17'
 
-      - name: Cache Flutter Pub cache
-        uses: actions/cache@v4
-        with:
-          path: ~/.pub-cache
-          key: ${{ runner.os }}-pub-${{ hashFiles('**/pubspec.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pub-
-
-      - name: Setup Flutter SDK
+      - name: Install Flutter Version 3.24.5
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.29.3'
-          architecture: 'x64'
+          flutter-version: '3.24.5' # Use the required Flutter version
 
-      - name: Confirm flutter + dart version
-        run: flutter --version
-
-      - name: Install dependencies
+      - name: Install Dependencies
         run: flutter pub get
-
-      - name: Run tests (optional)
+      - name: Run Our Test
         run: echo "Skipping tests (enable if needed)"
 
+      - name: Build APK
+        run: flutter build apk --release
+      - run: ls build/app/outputs/flutter-apk
 
-      - name: Build release APK
-        run: |
-          flutter clean
-          flutter build apk --release
 
-      - name: Upload APK to Firebase App Distribution
+      - name: Upload artifact to Firebase App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1
         with:
-          appId: ${{secrets.APP_ID}}
+          appId: ${{secrets.APP_ID}} 
           serviceCredentialsFileContent: ${{secrets.GOOGLE_APPLICATION_CREDENTIAL}}
-          groups: 'stylishTester'
+          groups: stylishTester
           file: build/app/outputs/flutter-apk/app-release.apk
-          releaseNotes: "APK auto-distributed from main branch"
+      
