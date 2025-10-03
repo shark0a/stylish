@@ -17,7 +17,8 @@ migrate_working_dir/
 *.ipr
 *.iws
 .idea/
-
+storeapp-3b378-088b2b82c713.json
+google-services.json
 # The .vscode folder contains launch configuration and tasks you configure in
 # VS Code which you may wish to be included in version control, so this line
 # is commented out by default.
