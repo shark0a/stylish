@@ -1,4 +1,4 @@
-// notification_screen.dart
+// lib/Features/Home/presentation/screens/notification_screen.dart
 import 'package:flutter/material.dart';
 import 'package:stylish/core/utils/app_styles.dart';
 
@@ -8,8 +8,14 @@ class NotificationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final title = notificationData?['title']?.toString() ?? 'No title';
-    final body = notificationData?['body']?.toString() ?? 'No content';
+    final title =
+        notificationData?['title'] ??
+        notificationData?['notification']?['title'] ??
+        'No title';
+    final body =
+        notificationData?['body'] ??
+        notificationData?['notification']?['body'] ??
+        'No content';
 
     return Scaffold(
       appBar: AppBar(
@@ -22,14 +28,26 @@ class NotificationScreen extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           decoration: ShapeDecoration(
             color: AppStyles.secondaryTextgColor,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(18),
+            ),
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(title, style: AppStyles.regular12.copyWith(fontWeight: FontWeight.bold)),
+              Text(
+                title.toString(),
+                style: AppStyles.regular12.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.center,
+              ),
               const SizedBox(height: 8),
-              Text(body, style: AppStyles.regular12),
+              Text(
+                body.toString(),
+                style: AppStyles.regular12,
+                textAlign: TextAlign.center,
+              ),
             ],
           ),
         ),

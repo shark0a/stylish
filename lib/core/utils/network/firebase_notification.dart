@@ -1,4 +1,5 @@
-
+// lib/core/utils/network/firebase_notification.dart
+import 'dart:convert';
 import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -11,12 +12,17 @@ import 'package:stylish/core/utils/app_routs.dart';
 /// Keep it lightweight; DO NOT use BuildContext here.
 Future<void> firebaseBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
-  // Save the message to local DB if needed — do not call local_notifications here.
-  debugPrint('Handling a background message ${message.messageId}');
+  // Save the message to local DB if needed — do not call flutter_local_notifications here.
+  debugPrint('Background message data: ${message.data}');
+  debugPrint('Background message id: ${message.messageId}');
 }
 
 class FirebaseNotification {
   FirebaseNotification();
+
+  /// If app opened from terminated/background before router is ready
+  /// we store the data here so UI can handle it once router is up.
+  static Map<String, dynamic>? pendingNotificationData;
 
   final FirebaseMessaging _messaging = FirebaseMessaging.instance;
   final FlutterLocalNotificationsPlugin _localNotifications =
@@ -27,9 +33,13 @@ class FirebaseNotification {
   static const String channelDescription =
       'Channel for important notifications (Stylish)';
 
-  /// Initialize notification system and FCM handlers.
+  /// Initialize FCM + local notifications.
+  /// Note: pass navigatorKey only if you really need it, but this implementation
+  /// relies on AppRoutes.router (GoRouter) for navigation.
   Future<void> init({GlobalKey<NavigatorState>? navigatorKey}) async {
-    // 1) local notifications initialization
+    // AndroidInitializationSettings expects the resource name.
+    // Keep '@mipmap/ic_launcher' by default (safe). Replace with your notification icon
+    // resource (e.g. 'ic_stat_notify' placed in drawable) for correct small icon.
     const AndroidInitializationSettings androidInit =
         AndroidInitializationSettings('@mipmap/ic_launcher');
     const DarwinInitializationSettings iosInit = DarwinInitializationSettings();
@@ -39,24 +49,37 @@ class FirebaseNotification {
       iOS: iosInit,
     );
 
+    // Initialize plugin and handle taps on local notifications
     await _localNotifications.initialize(
       initSettings,
       onDidReceiveNotificationResponse: (NotificationResponse response) {
-        debugPrint('Tapped local notification payload: ${response.payload}');
-        // If you pushed payload as JSON String, parse it.
         try {
-          if (navigatorKey != null) {
-            // Navigate to notifications screen
-            navigatorKey.currentState?.pushNamed('/notifications');
-            // Or use GoRouter: AppRoutes.router.go(AppRoutes.kNotificationScreen, extra: parsedData);
+          final payload = response.payload;
+          Map<String, dynamic>? data;
+          if (payload != null && payload.isNotEmpty) {
+            // payload was set as json string in showLocalNotification
+            data = jsonDecode(payload) as Map<String, dynamic>;
+          }
+
+          if (data != null) {
+            AppRoutes.router.push(AppRoutes.kNotificationScreen, extra: data);
+          } else {
+            AppRoutes.router.push(AppRoutes.kNotificationScreen);
           }
         } catch (e) {
           debugPrint('Navigation on tap failed: $e');
+          // fallback navigate without data
+          try {
+            AppRoutes.router.push(AppRoutes.kNotificationScreen);
+          } catch (_) {
+            // if router not ready, keep pending
+            pendingNotificationData = null;
+          }
         }
       },
     );
 
-    // 2) create Android channel
+    // create Android notification channel (Android 8+)
     final androidPlugin =
         _localNotifications
             .resolvePlatformSpecificImplementation<
@@ -70,10 +93,10 @@ class FirebaseNotification {
     );
     await androidPlugin?.createNotificationChannel(channel);
 
-    // 3) register background handler (top-level)
+    // register background handler (top-level)
     FirebaseMessaging.onBackgroundMessage(firebaseBackgroundHandler);
 
-    // 4) request permissions
+    // request permissions
     if (Platform.isIOS) {
       await _messaging.requestPermission(alert: true, badge: true, sound: true);
     } else if (Platform.isAndroid) {
@@ -82,70 +105,88 @@ class FirebaseNotification {
       }
     }
 
-    // 5) foreground message handling
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    // foreground messages -> show local notification
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
       debugPrint('Foreground message: ${message.messageId}');
       if (message.notification != null) {
-        showLocalNotification(message);
+        await showLocalNotification(message);
       }
     });
 
-    // 6) when app opened from terminated state
-    _messaging.getInitialMessage().then((message) {
-      if (message != null) {
+    // If app was opened from terminated state via notification
+    // getInitialMessage returns that message (if any).
+    try {
+      final initialMessage = await _messaging.getInitialMessage();
+      if (initialMessage != null) {
         debugPrint(
-          'App opened from terminated state via notification: ${message.messageId}',
+          'App opened from terminated state via notification: ${initialMessage.messageId}',
         );
-        // navigate using router if available
-        if (navigatorKey != null) {
-          navigatorKey.currentState?.pushNamed(
-            '/notifications',
-            arguments: message.data,
-          );
-        } else {
-          // fallback: use AppRoutes.router if you imported it
-          try {
-            AppRoutes.router.go(
-              AppRoutes.kNotificationScreen,
-              extra: message.data,
-            );
-          } catch (_) {}
+        final merged = _mergeMessage(initialMessage);
+        try {
+          AppRoutes.router.go(AppRoutes.kNotificationScreen, extra: merged);
+        } catch (e) {
+          debugPrint('Router not ready for initialMessage, saving pending: $e');
+          pendingNotificationData = merged;
         }
       }
-    });
-
-    // 7) when app opened from background by tapping notification
-    FirebaseMessaging.onMessageOpenedApp.listen((message) {
+    } catch (e) {
+      debugPrint('getInitialMessage error: $e');
+    }
+    // When app opened from background by tapping a system notification
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       debugPrint(
         'App opened from background via notification: ${message.messageId}',
       );
-      if (navigatorKey != null) {
-        navigatorKey.currentState?.pushNamed(
-          '/notifications',
-          arguments: message.data,
+      final merged = _mergeMessage(message);
+      try {
+        AppRoutes.router.go(AppRoutes.kNotificationScreen, extra: merged);
+      } catch (e) {
+        debugPrint(
+          'Router not ready for onMessageOpenedApp, saving pending: $e',
         );
-      } else {
-        try {
-          AppRoutes.router.go(
-            AppRoutes.kNotificationScreen,
-            extra: message.data,
-          );
-        } catch (_) {}
+        pendingNotificationData = merged;
       }
     });
   }
 
-  /// get device token
+  /// Call this from your UI (e.g. in MyApp.initState after router is ready)
+  /// to process a pending notification that arrived while router wasn't ready.
+  static void handlePendingNotificationIfAny() {
+    if (pendingNotificationData != null) {
+      try {
+        AppRoutes.router.push(
+          AppRoutes.kNotificationScreen,
+          extra: pendingNotificationData,
+        );
+      } catch (e) {
+        debugPrint('Failed to handle pending notification: $e');
+      } finally {
+        pendingNotificationData = null;
+      }
+    }
+  }
+
   Future<String?> getToken() async {
     final token = await _messaging.getToken();
     debugPrint('FCM Token: $token');
     return token;
   }
 
-  /// show a local notification from a RemoteMessage (used in onMessage)
+  Map<String, dynamic> _mergeMessage(RemoteMessage message) {
+    final Map<String, dynamic> merged = {};
+    if (message.notification?.title != null) {
+      merged['title'] = message.notification!.title;
+    }
+    if (message.notification?.body != null) {
+      merged['body'] = message.notification!.body;
+    }
+    merged.addAll(message.data);
+    return merged;
+  }
+
   Future<void> showLocalNotification(RemoteMessage message) async {
-    final notification = message.notification;
-    if (notification == null) return;
+    // Merge to form payload including title/body and data
+    final Map<String, dynamic> payloadMap = _mergeMessage(message);
 
     final androidDetails = AndroidNotificationDetails(
       channelId,
@@ -153,7 +194,7 @@ class FirebaseNotification {
       channelDescription: channelDescription,
       importance: Importance.max,
       priority: Priority.high,
-      icon: '@mipmap/ic_launcher',
+      icon: '@mipmap/ic_launcher', // change to your small icon if you add one
     );
 
     final iosDetails = DarwinNotificationDetails(
@@ -167,12 +208,14 @@ class FirebaseNotification {
       iOS: iosDetails,
     );
 
+    final id = DateTime.now().millisecondsSinceEpoch ~/ 1000;
+
     await _localNotifications.show(
-      notification.hashCode,
-      notification.title,
-      notification.body,
+      id,
+      payloadMap['title']?.toString() ?? message.notification?.title,
+      payloadMap['body']?.toString() ?? message.notification?.body,
       platformDetails,
-      payload: message.data.isNotEmpty ? message.data.toString() : null,
+      payload: jsonEncode(payloadMap), // <<< important: include title/body here
     );
   }
 }
