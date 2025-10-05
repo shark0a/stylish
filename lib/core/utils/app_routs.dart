@@ -65,6 +65,7 @@ abstract class AppRoutes {
           return NotificationScreen(notificationData: data);
         },
       ),
+      
     ],
   );
 }
