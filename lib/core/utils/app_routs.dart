@@ -1,6 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:stylish/Features/Home/presentation/screens/home_page.dart';
+import 'package:stylish/Features/Home/presentation/screens/notification_screen.dart';
 import 'package:stylish/Features/OnBoardScreen/screens/get_start_screen.dart';
 import 'package:stylish/Features/auth/presentation/manager/cubit/auth_cubit.dart';
 import 'package:stylish/Features/auth/presentation/screens/forget_password_screen.dart';
@@ -17,8 +19,12 @@ abstract class AppRoutes {
   static const kSignUpScreen = '/signupscreen';
   static const kForgetPasswordScreen = '/forgetpasswordscreen';
   static const kOnBoardingScreen = '/OnBoardingScreen';
+  static const kNotificationScreen = '/NotificationScreen';
+  static final GlobalKey<NavigatorState> rootNavigatorKey =
+      GlobalKey<NavigatorState>();
 
   static final router = GoRouter(
+    navigatorKey: rootNavigatorKey,
     routes: [
       GoRoute(path: '/', builder: (context, state) => const SplashScreen()),
       GoRoute(
@@ -50,6 +56,15 @@ abstract class AppRoutes {
         builder: (context, state) => const ForgetPasswordScreen(),
       ),
       GoRoute(path: kHomePage, builder: (context, state) => const HomePage()),
+      GoRoute(
+        path: kNotificationScreen,
+        builder: (context, state) {
+          final extra = state.extra;
+          final Map<String, dynamic>? data =
+              extra is Map<String, dynamic> ? extra : null;
+          return NotificationScreen(notificationData: data);
+        },
+      ),
     ],
   );
 }

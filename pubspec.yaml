@@ -28,6 +28,9 @@ dependencies:
   intl: any
   provider: ^6.1.5
   shared_preferences: ^2.5.3   # ← اتنقلت هنا
+  firebase_messaging: ^15.2.10
+  flutter_local_notifications: ^19.4.2
+  permission_handler: ^12.0.1
 
 dev_dependencies:
   flutter_lints: ^5.0.0

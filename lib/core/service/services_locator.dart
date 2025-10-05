@@ -7,6 +7,7 @@ import 'package:stylish/Features/auth/data/repo/auth_repo.dart';
 import 'package:stylish/Features/auth/data/repo/auth_repo_implementation.dart';
 import 'package:stylish/Features/auth/presentation/manager/cubit/auth_cubit.dart';
 import 'package:stylish/core/service/api_service.dart';
+import 'package:stylish/core/utils/network/firebase_notification.dart';
 import 'package:stylish/core/utils/shared_pref.dart';
 
 final sl = GetIt.instance;
@@ -33,5 +34,8 @@ Future<void> setupServiceLocator({
   //shared pref
   final sharedPreferences = await SharedPreferences.getInstance();
   sl.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
-  sl.registerLazySingleton<SharedPref>(() => SharedPref(sharedPref: sl()));
+  sl.registerLazySingleton<SharedPref>(() => SharedPref(sharedPref: sl<SharedPreferences>()));
+//
+sl.registerLazySingleton<FirebaseNotification>(() => FirebaseNotification());
+
 }
