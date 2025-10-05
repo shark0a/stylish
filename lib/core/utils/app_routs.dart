@@ -32,6 +32,7 @@ abstract class AppRoutes {
         builder: (context, state) => const OnboardingScreen(),
       ),
       GoRoute(
+        
         path: kGetStartScreen,
         builder: (context, state) => const GetStartScreen(),
       ),
@@ -65,7 +66,6 @@ abstract class AppRoutes {
           return NotificationScreen(notificationData: data);
         },
       ),
-      
     ],
   );
 }
