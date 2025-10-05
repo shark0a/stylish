@@ -113,8 +113,6 @@ class FirebaseNotification {
       }
     });
 
-    // If app was opened from terminated state via notification
-    // getInitialMessage returns that message (if any).
     try {
       final initialMessage = await _messaging.getInitialMessage();
       if (initialMessage != null) {
