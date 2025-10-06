@@ -246,6 +246,7 @@ class OneSignalNotificationService {
       if (additionalData != null) {
         notificationData.addAll(additionalData);
       }
+      
       try {
         AppRoutes.router.push(
           AppRoutes.kNotificationScreen,
