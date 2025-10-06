@@ -2,6 +2,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:stylish/core/service/services_locator.dart';
 import 'package:stylish/core/utils/app_routs.dart';
 import 'package:stylish/core/utils/network/firebase_notification.dart';
@@ -17,8 +18,10 @@ Future<void> main() async {
 
   final notificationService = sl<FirebaseNotification>();
   await notificationService.init(navigatorKey: AppRoutes.rootNavigatorKey);
-  final token = await notificationService.getToken();
-  debugPrint('FCM token (main): $token');
+  // final token = await notificationService.getToken();
+  OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
+  OneSignal.initialize('1efe5393-11b0-40c2-a7c8-4c6f10f203c6');
+  OneSignal.Notifications.requestPermission(true);
 
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
