@@ -34,8 +34,13 @@ Future<void> setupServiceLocator({
   //shared pref
   final sharedPreferences = await SharedPreferences.getInstance();
   sl.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
-  sl.registerLazySingleton<SharedPref>(() => SharedPref(sharedPref: sl<SharedPreferences>()));
-//
-sl.registerLazySingleton<FirebaseNotification>(() => FirebaseNotification());
-
+  sl.registerLazySingleton<SharedPref>(
+    () => SharedPref(sharedPref: sl<SharedPreferences>()),
+  );
+  //
+  // sl.registerLazySingleton<FirebaseNotification>(() => FirebaseNotification());
+  // Replace FirebaseNotification with OneSignalNotificationService
+  sl.registerLazySingleton<OneSignalNotificationService>(
+  () => OneSignalNotificationService(),
+);
 }
