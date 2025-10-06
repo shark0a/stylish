@@ -38,7 +38,6 @@ jobs:
         with:
           flutter-version: '3.29.3'
           architecture: 'x64'
-
       - name: Confirm flutter + dart version
         run: flutter --version
 
@@ -64,7 +63,8 @@ jobs:
       - name: Build release APK
         run: |
           flutter clean
-          flutter build apk --release
+          run: flutter build apk --release --dart-define=ONESIGNAL_APP_ID=${{ secrets.ONESIGNAL_APP_ID }}
+
 
       - name: Upload APK to Firebase App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1

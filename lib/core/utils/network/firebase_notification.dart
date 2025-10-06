@@ -225,7 +225,9 @@ import 'package:stylish/core/utils/app_routs.dart';
 class OneSignalNotificationService {
   OneSignalNotificationService();
   void init() {
+
     final String appId = dotenv.env['ONESIGNAL_APP_ID']!;
+    
     OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
     OneSignal.initialize(appId);
     OneSignal.Notifications.requestPermission(true);
