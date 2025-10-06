@@ -46,6 +46,20 @@ jobs:
 
       - name: Run tests (optional)
         run: echo "Skipping tests (enable if needed)"
+      - name: Validate ONESIGNAL secret
+        run: |
+          if [ -z "${{ secrets.ONESIGNAL_APP_ID }}" ]; then
+            echo "ERROR: ONESIGNAL_APP_ID secret is missing" >&2
+            exit 1
+          fi
+
+      - name: Build release APK with ONESIGNAL_APP_ID
+        env:
+          ONESIGNAL_APP_ID: ${{ secrets.ONESIGNAL_APP_ID }}
+        run: |
+          flutter clean
+          flutter build apk --release --dart-define=ONESIGNAL_APP_ID=${ONESIGNAL_APP_ID}
+  
 
       # - name: Build App Bundle (AAB)
       #   run: |
@@ -60,10 +74,6 @@ jobs:
       #     groups: 'stylishTester'
       #     file: build/app/outputs/bundle/release/app-release.aab 
       #     releaseNotes: "AAB build auto-distributed from main branch."
-      - name: Build release APK
-        run: |
-          flutter clean
-          run: flutter build apk --release --dart-define=ONESIGNAL_APP_ID=${{ secrets.ONESIGNAL_APP_ID }}
 
 
       - name: Upload APK to Firebase App Distribution
