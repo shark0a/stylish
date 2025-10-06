@@ -52,14 +52,12 @@ jobs:
             echo "ERROR: ONESIGNAL_APP_ID secret is missing" >&2
             exit 1
           fi
-
       - name: Build release APK with ONESIGNAL_APP_ID
         env:
           ONESIGNAL_APP_ID: ${{ secrets.ONESIGNAL_APP_ID }}
         run: |
           flutter clean
           flutter build apk --release --dart-define=ONESIGNAL_APP_ID=${ONESIGNAL_APP_ID}
-  
 
       # - name: Build App Bundle (AAB)
       #   run: |
