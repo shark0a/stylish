@@ -237,6 +237,7 @@ class OneSignalNotificationService {
       final notification = event.notification;
       final additionalData = notification.additionalData;
 
+
       final Map<String, dynamic> notificationData = {};
 
       if (notification.title != null) {
