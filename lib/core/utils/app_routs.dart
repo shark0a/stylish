@@ -32,7 +32,6 @@ abstract class AppRoutes {
         builder: (context, state) => const OnboardingScreen(),
       ),
       GoRoute(
-        
         path: kGetStartScreen,
         builder: (context, state) => const GetStartScreen(),
       ),
@@ -57,7 +56,7 @@ abstract class AppRoutes {
         builder: (context, state) => const ForgetPasswordScreen(),
       ),
       GoRoute(path: kHomePage, builder: (context, state) => const HomePage()),
-       GoRoute(
+      GoRoute(
         path: kNotificationScreen,
         builder: (context, state) {
           final extra = state.extra;

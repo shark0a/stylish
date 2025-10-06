@@ -37,11 +37,8 @@ class FirebaseNotification {
   /// Note: pass navigatorKey only if you really need it, but this implementation
   /// relies on AppRoutes.router (GoRouter) for navigation.
   Future<void> init({GlobalKey<NavigatorState>? navigatorKey}) async {
-    // AndroidInitializationSettings expects the resource name.
-    // Keep '@mipmap/ic_launcher' by default (safe). Replace with your notification icon
-    // resource (e.g. 'ic_stat_notify' placed in drawable) for correct small icon.
     const AndroidInitializationSettings androidInit =
-        AndroidInitializationSettings('@mipmap/ic_launcher');
+        AndroidInitializationSettings('@mipmap/launcher_icon');
     const DarwinInitializationSettings iosInit = DarwinInitializationSettings();
 
     const InitializationSettings initSettings = InitializationSettings(
@@ -183,7 +180,6 @@ class FirebaseNotification {
   }
 
   Future<void> showLocalNotification(RemoteMessage message) async {
-    // Merge to form payload including title/body and data
     final Map<String, dynamic> payloadMap = _mergeMessage(message);
 
     final androidDetails = AndroidNotificationDetails(
@@ -192,7 +188,7 @@ class FirebaseNotification {
       channelDescription: channelDescription,
       importance: Importance.max,
       priority: Priority.high,
-      icon: '@mipmap/ic_launcher', // change to your small icon if you add one
+      icon: '@mipmap/launcher_icon',
     );
 
     final iosDetails = DarwinNotificationDetails(

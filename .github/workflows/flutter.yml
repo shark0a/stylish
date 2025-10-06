@@ -48,17 +48,29 @@ jobs:
       - name: Run tests (optional)
         run: echo "Skipping tests (enable if needed)"
 
-
-      - name: Build release APK
+      - name: Build App Bundle (AAB)
         run: |
           flutter clean
-          flutter build apk --release
+          flutter build appbundle --release # ⬅️ بناء AAB
 
-      - name: Upload APK to Firebase App Distribution
+      - name: Upload AAB to Firebase App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1
         with:
           appId: ${{secrets.APP_ID}}
           serviceCredentialsFileContent: ${{secrets.GOOGLE_APPLICATION_CREDENTIAL}}
           groups: 'stylishTester'
-          file: build/app/outputs/flutter-apk/app-release.apk
-          releaseNotes: "APK auto-distributed from main branch"
+          file: build/app/outputs/bundle/release/app-release.aab 
+          releaseNotes: "AAB build auto-distributed from main branch."
+      # - name: Build release APK
+      #   run: |
+      #     flutter clean
+      #     flutter build apk --release
+
+      # - name: Upload APK to Firebase App Distribution
+      #   uses: wzieba/Firebase-Distribution-Github-Action@v1
+      #   with:
+      #     appId: ${{secrets.APP_ID}}
+      #     serviceCredentialsFileContent: ${{secrets.GOOGLE_APPLICATION_CREDENTIAL}}
+      #     groups: 'stylishTester'
+      #     file: build/app/outputs/flutter-apk/app-release.apk
+      #     releaseNotes: "APK auto-distributed from main branch"
