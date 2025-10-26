@@ -1,12 +1,25 @@
+import 'package:hive/hive.dart';
+part 'product_response_model.g.dart';
+
+@HiveType(typeId: 1)
 class ProductModel {
+  @HiveField(0)
   final int id;
+  @HiveField(1)
   final String? title;
+  @HiveField(2)
   final String? description;
+  @HiveField(3)
   final String? category;
+  @HiveField(4)
   final String? thumbnail;
+  @HiveField(5)
   final List<dynamic> images;
+  @HiveField(6)
   final double? price;
+  @HiveField(7)
   final double? rating;
+  @HiveField(8)
   final int? stock;
 
   ProductModel({

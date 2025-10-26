@@ -23,16 +23,16 @@ class SplashScreenState extends State<SplashScreen> {
     final sharedPref = sl.get<SharedPref>();
 
     final bool isFirstTime =
-        sharedPref.getBool(SharedPrefKey.isfirstTime) ?? false;
+        sharedPref.getBool(SharedPrefKey.isfirstTime) ?? true;
     final bool isLoggedIn = sharedPref.getBool(SharedPrefKey.isLogin) ?? false;
 
-    if (!isFirstTime) {
+    if (isFirstTime) {
       context.go(AppRoutes.kOnBoardingScreen);
     } else {
       if (isLoggedIn) {
         context.go(AppRoutes.kHomePage);
       } else {
-        context.go(AppRoutes.kLoginscreen);
+        context.go(AppRoutes.kSignUpScreen);
       }
     }
   }

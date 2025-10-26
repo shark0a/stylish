@@ -20,4 +20,11 @@ class AppSettingsNotifierProvider extends ChangeNotifier {
         _themeMode == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
     notifyListeners();
   }
+
+  //ProductScreenIndicator
+  int productDetailsIndicatorIndex = 0;
+  void toggleProductDetailsIndicatorIndex(int index) {
+    productDetailsIndicatorIndex = index;
+    notifyListeners();
+  }
 }

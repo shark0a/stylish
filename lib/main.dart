@@ -10,9 +10,7 @@ import 'package:stylish/stylish_app.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
-
   await setupServiceLocator();
-
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   final oneSignalService = sl<OneSignalNotificationService>();
   oneSignalService.init();
@@ -22,7 +20,6 @@ Future<void> main() async {
       statusBarIconBrightness: Brightness.dark,
     ),
   );
-
   runApp(const StylishApp());
 }
 // final notificationService = sl<FirebaseNotification>();

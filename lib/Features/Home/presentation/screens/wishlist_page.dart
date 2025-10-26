@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:stylish/Features/Home/data/models/product_model/product_response_model.dart';
 import 'package:stylish/Features/Home/presentation/manager/home_provider.dart';
 import 'package:stylish/Features/Home/presentation/widgets/wishlist/card_item.dart';
+import 'package:stylish/core/utils/app_routs.dart';
 import 'package:stylish/core/utils/app_styles.dart';
 import 'package:stylish/core/utils/helper/error/__error_view.dart';
 import 'package:stylish/core/utils/helper/error/inline_error.dart';
@@ -67,7 +69,12 @@ class WishlistPage extends StatelessWidget {
           itemCount: items.length + tailCount,
           itemBuilder: (context, index) {
             if (index < items.length) {
-              return CardItem(products: items[index]);
+              return GestureDetector(
+                onTap: () {
+                  context.push(AppRoutes.kProductDetailsScreen);
+                },
+                child: CardItem(products: items[index]),
+              );
             }
             if (isLoadingMore) {
               return const Padding(

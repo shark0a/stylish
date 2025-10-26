@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:stylish/Features/Home/presentation/screens/home_page.dart';
 import 'package:stylish/Features/Home/presentation/screens/notification_screen.dart';
+import 'package:stylish/Features/Home/presentation/screens/product_details_screen.dart';
 import 'package:stylish/Features/OnBoardScreen/screens/get_start_screen.dart';
 import 'package:stylish/Features/auth/presentation/manager/cubit/auth_cubit.dart';
 import 'package:stylish/Features/auth/presentation/screens/forget_password_screen.dart';
@@ -20,6 +21,7 @@ abstract class AppRoutes {
   static const kForgetPasswordScreen = '/forgetpasswordscreen';
   static const kOnBoardingScreen = '/OnBoardingScreen';
   static const kNotificationScreen = '/NotificationScreen';
+  static const kProductDetailsScreen = '/ProductDetailsScreen';
   static final GlobalKey<NavigatorState> rootNavigatorKey =
       GlobalKey<NavigatorState>();
 
@@ -65,6 +67,7 @@ abstract class AppRoutes {
           return NotificationScreen(notificationData: data);
         },
       ),
+      GoRoute(path: kProductDetailsScreen,builder: (context, state) => const ProductDetailsScreen(),)
     ],
   );
 }
