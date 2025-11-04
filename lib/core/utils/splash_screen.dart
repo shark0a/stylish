@@ -28,6 +28,7 @@ class SplashScreenState extends State<SplashScreen> {
 
     if (isFirstTime) {
       context.go(AppRoutes.kOnBoardingScreen);
+      sharedPref.setBool(SharedPrefKey.isfirstTime, false);
     } else {
       if (isLoggedIn) {
         context.go(AppRoutes.kHomePage);

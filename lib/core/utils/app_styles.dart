@@ -10,6 +10,8 @@ class AppStyles {
   static const itemsizetextgColo = Color(0xffFA7189);
   static const activesmallContainerColo = Color(0xffFFA3B3);
   static const disablemallContainerColo = Color(0xffDEDBDB);
+  static const fFCCD5 = Color(0xffFFCCD5);
+  static const d9D9D9 = Color(0xffD9D9D9);
 
   static const regular12 = TextStyle(
     color: Colors.black,

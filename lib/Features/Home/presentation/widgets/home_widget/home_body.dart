@@ -13,10 +13,7 @@ import 'package:stylish/Features/Home/presentation/widgets/home_widget/sponserd_
 import 'package:stylish/Features/Home/presentation/widgets/home_widget/summer_container.dart';
 
 class HomeBody extends StatelessWidget {
-  const HomeBody({
-    super.key,
-    required this.provider,
-  });
+  const HomeBody({super.key, required this.provider});
 
   final HomeProvider provider;
 
@@ -25,7 +22,10 @@ class HomeBody extends StatelessWidget {
     return ListView(
       children: [
         SearchTextFiled(),
-        AllFeatureAndFilterRow(),
+        Padding(
+          padding: const EdgeInsets.only(right: 20, left: 22),
+          child: AllFeatureAndFilterRow(title: 'All Featured'),
+        ),
         const SizedBox(height: 16),
         CategoryListView(),
         const SizedBox(height: 16),

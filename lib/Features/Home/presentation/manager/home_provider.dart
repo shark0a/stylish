@@ -66,16 +66,20 @@ class HomeProvider extends ChangeNotifier {
 
   int _limit = 10;
   int _skip = 0;
+  bool isFirstLoadDone = false;
 
   HomeProvider({required HomeRepo homeRepo}) : _homeRepo = homeRepo;
+  Future<void> fetchProducts({int limit = 10, bool firstLoad = true}) async {
+    if (isFirstLoadDone && firstLoad) return;
 
-  Future<void> fetchProducts({int limit = 10}) async {
     _isLoading = true;
     _errorMessage = null;
-    _products.clear();
-    _limit = limit;
-    _skip = 0;
-    _hasMore = true;
+    if (firstLoad) {
+      _products.clear();
+      _limit = limit;
+      _skip = 0;
+      _hasMore = true;
+    }
     notifyListeners();
 
     final result = await _homeRepo.fetchProducts(limit: _limit, skip: _skip);
@@ -91,6 +95,7 @@ class HomeProvider extends ChangeNotifier {
         _skip += fetched.length;
         _hasMore = fetched.length == _limit;
         _isLoading = false;
+        isFirstLoadDone = true; // ✅ تم التحميل بنجاح
         notifyListeners();
       },
     );

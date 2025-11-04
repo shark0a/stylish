@@ -27,4 +27,11 @@ class AppSettingsNotifierProvider extends ChangeNotifier {
     productDetailsIndicatorIndex = index;
     notifyListeners();
   }
+
+  //productScreenViewSimillerTaped?
+  bool isProductScreenViewSimillerTaped = false;
+  void toggleisProductScreenViewSimillerTaped() {
+    isProductScreenViewSimillerTaped = !isProductScreenViewSimillerTaped;
+    notifyListeners();
+  }
 }

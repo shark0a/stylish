@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:stylish/Features/Home/presentation/screens/product_details_screen.dart';
 import 'package:stylish/Features/Home/presentation/widgets/product_details/product_details_indicator.dart';
 import 'package:stylish/core/provider/app_setting_provider.dart';
 

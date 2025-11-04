@@ -1,8 +1,15 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:stylish/core/utils/app_styles.dart';
 
 class DisplayProductImage extends StatelessWidget {
-  const DisplayProductImage({super.key});
-
+  const DisplayProductImage({
+    super.key,
+    required this.imageUrl,
+    required this.productImageHeroTag,
+  });
+  final String imageUrl;
+  final int productImageHeroTag;
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
@@ -14,9 +21,37 @@ class DisplayProductImage extends StatelessWidget {
         child: Stack(
           children: [
             Positioned.fill(
-              child: Image.asset(
-                "assets/icons/cart_image_test.png",
-                fit: BoxFit.cover,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(15),
+                child: Hero(
+                  tag: productImageHeroTag,
+                  child: CachedNetworkImage(
+                    imageUrl: imageUrl,
+                    fit: BoxFit.contain,
+
+                    placeholder:
+                        (context, url) => Container(
+                          color: AppStyles.primaryBackgroungColor,
+                          // height: 120,
+                          width: double.infinity,
+                          child: const Center(
+                            child: CircularProgressIndicator(
+                              color: AppStyles.changeSeconderyTextgColor,
+                              backgroundColor: AppStyles.primaryBackgroungColor,
+                            ),
+                          ),
+                        ),
+
+                    errorWidget:
+                        (context, url, error) => const Center(
+                          child: Icon(
+                            Icons.broken_image,
+                            size: 40,
+                            color: Colors.grey,
+                          ),
+                        ),
+                  ),
+                ),
               ),
             ),
             Positioned(

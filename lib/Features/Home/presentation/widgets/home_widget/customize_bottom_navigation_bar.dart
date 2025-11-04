@@ -37,6 +37,9 @@ class CustomizeBottomNavigationBar extends StatelessWidget {
       type: BottomNavigationBarType.fixed,
       currentIndex: provider.bottomNavigationbarIndex,
       onTap: (value) {
+        if (value == 1) {
+          provider.fetchProducts(firstLoad: true);
+        }
         provider.setbottomNavigationbarIndex(value);
       },
       items: [
@@ -75,6 +78,39 @@ class CustomizeBottomNavigationBar extends StatelessWidget {
             ],
           ),
           label: "",
+          activeIcon: Stack(
+            clipBehavior: Clip.none,
+            // alignment: Alignment.center,
+            children: [
+              const SizedBox(width: 53.85, height: 56),
+              Positioned(
+                // top: -10,
+                bottom: 24,
+                child: Container(
+                  width: 53.85,
+                  height: 56,
+                  decoration: BoxDecoration(
+                    color: Color(0xffEB3030),
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color(0x16000000),
+                        blurRadius: 14,
+                        spreadRadius: 0,
+                        offset: Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: Center(
+                    child: Icon(
+                      Icons.shopping_cart_outlined,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
         BottomNavigationBarItem(icon: Icon(Icons.search), label: "Search"),
         BottomNavigationBarItem(

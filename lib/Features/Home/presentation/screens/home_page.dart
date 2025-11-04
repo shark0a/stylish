@@ -48,4 +48,4 @@ class HomePage extends StatelessWidget {
       bottomNavigationBar: CustomizeBottomNavigationBar(provider: provider),
     );
   }
-}
+} 

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:stylish/Features/Home/data/models/product_model/product_response_model.dart';
 import 'package:stylish/Features/Home/presentation/widgets/home_widget/star_rating.dart';
@@ -18,26 +19,37 @@ class CardItem extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(15),
-            child: Image.network(
-              products.images.isNotEmpty
-                  ? products.images.first
-                  : products.thumbnail,
-              fit: BoxFit.cover,
-              loadingBuilder: (_, child, loadingProgress) {
-                if (loadingProgress == null) return child;
-                return Container(
-                  color: AppStyles.primaryBackgroungColor,
-                  height: 90,
-                  width: 90,
-                  child: Center(
-                    child: CircularProgressIndicator(
-                      backgroundColor: AppStyles.primaryBackgroungColor,
-                      color: AppStyles.changeSeconderyTextgColor,
+            child: Hero(
+              tag: products.id,
+              child: CachedNetworkImage(
+                imageUrl:
+                    products.images.isNotEmpty
+                        ? products.images.first
+                        : products.thumbnail,
+                fit: BoxFit.cover,
+
+                placeholder:
+                    (context, url) => Container(
+                      color: AppStyles.primaryBackgroungColor,
+                      height: 120,
+                      width: double.infinity,
+                      child: const Center(
+                        child: CircularProgressIndicator(
+                          color: AppStyles.changeSeconderyTextgColor,
+                          backgroundColor: AppStyles.primaryBackgroungColor,
+                        ),
+                      ),
                     ),
-                  ),
-                );
-              },
-              errorBuilder: (_, __, ___) => const Icon(Icons.broken_image),
+
+                errorWidget:
+                    (context, url, error) => const Center(
+                      child: Icon(
+                        Icons.broken_image,
+                        size: 40,
+                        color: Colors.grey,
+                      ),
+                    ),
+              ),
             ),
           ),
 

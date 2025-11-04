@@ -26,13 +26,26 @@ class ProductModelAdapter extends TypeAdapter<ProductModel> {
       price: fields[6] as double?,
       rating: fields[7] as double?,
       stock: fields[8] as int?,
+      discountPercentage: fields[9] as double?,
+      tags: (fields[10] as List?)?.cast<String>(),
+      brand: fields[11] as String?,
+      sku: fields[12] as String?,
+      weight: fields[13] as double?,
+      dimensions: fields[14] as Dimensions?,
+      warrantyInformation: fields[15] as String?,
+      shippingInformation: fields[16] as String?,
+      availabilityStatus: fields[17] as String?,
+      reviews: (fields[18] as List?)?.cast<Review>(),
+      returnPolicy: fields[19] as String?,
+      minimumOrderQuantity: fields[20] as int?,
+      meta: fields[21] as Meta?,
     );
   }
 
   @override
   void write(BinaryWriter writer, ProductModel obj) {
     writer
-      ..writeByte(9)
+      ..writeByte(22)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -50,7 +63,33 @@ class ProductModelAdapter extends TypeAdapter<ProductModel> {
       ..writeByte(7)
       ..write(obj.rating)
       ..writeByte(8)
-      ..write(obj.stock);
+      ..write(obj.stock)
+      ..writeByte(9)
+      ..write(obj.discountPercentage)
+      ..writeByte(10)
+      ..write(obj.tags)
+      ..writeByte(11)
+      ..write(obj.brand)
+      ..writeByte(12)
+      ..write(obj.sku)
+      ..writeByte(13)
+      ..write(obj.weight)
+      ..writeByte(14)
+      ..write(obj.dimensions)
+      ..writeByte(15)
+      ..write(obj.warrantyInformation)
+      ..writeByte(16)
+      ..write(obj.shippingInformation)
+      ..writeByte(17)
+      ..write(obj.availabilityStatus)
+      ..writeByte(18)
+      ..write(obj.reviews)
+      ..writeByte(19)
+      ..write(obj.returnPolicy)
+      ..writeByte(20)
+      ..write(obj.minimumOrderQuantity)
+      ..writeByte(21)
+      ..write(obj.meta);
   }
 
   @override

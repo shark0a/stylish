@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:stylish/Features/Home/data/models/product_model/product_response_model.dart';
 import 'package:stylish/Features/Home/presentation/manager/home_provider.dart';
 import 'package:stylish/Features/Home/presentation/widgets/wishlist/card_item.dart';
+import 'package:stylish/Features/Home/presentation/widgets/wishlist/shimmer_card.dart';
 import 'package:stylish/core/utils/app_routs.dart';
 import 'package:stylish/core/utils/app_styles.dart';
 import 'package:stylish/core/utils/helper/error/__error_view.dart';
@@ -16,11 +17,18 @@ class WishlistPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (provider.isLoading && provider.products.isEmpty) {
-      return const Center(
-        child: CircularProgressIndicator(
-          color: AppStyles.textgColorActiveNav,
-          backgroundColor: AppStyles.primaryBackgroungColor,
+      return GridView.builder(
+        padding: const EdgeInsets.all(16),
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
+          childAspectRatio: 0.75,
         ),
+        itemCount: 6,
+        itemBuilder: (context, index) => const ShimmerCard(),
       );
     }
     if (!provider.isLoading &&
@@ -71,7 +79,10 @@ class WishlistPage extends StatelessWidget {
             if (index < items.length) {
               return GestureDetector(
                 onTap: () {
-                  context.push(AppRoutes.kProductDetailsScreen);
+                  context.push(
+                    AppRoutes.kProductDetailsScreen,
+                    extra: items[index],
+                  );
                 },
                 child: CardItem(products: items[index]),
               );
