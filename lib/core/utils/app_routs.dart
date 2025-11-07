@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:stylish/Features/Home/presentation/screens/profile_screen.dart';
 import 'package:stylish/Features/Home/presentation/screens/home_page.dart';
 import 'package:stylish/Features/Home/presentation/screens/notification_screen.dart';
 import 'package:stylish/Features/Home/presentation/screens/product_details_screen.dart';
@@ -22,6 +23,7 @@ abstract class AppRoutes {
   static const kOnBoardingScreen = '/OnBoardingScreen';
   static const kNotificationScreen = '/NotificationScreen';
   static const kProductDetailsScreen = '/ProductDetailsScreen';
+  static const kProfileScreen = '/CheckoutScreen';
   static final GlobalKey<NavigatorState> rootNavigatorKey =
       GlobalKey<NavigatorState>();
 
@@ -67,7 +69,14 @@ abstract class AppRoutes {
           return NotificationScreen(notificationData: data);
         },
       ),
-      GoRoute(path: kProductDetailsScreen,builder: (context, state) => const ProductDetailsScreen(),)
+      GoRoute(
+        path: kProductDetailsScreen,
+        builder: (context, state) => const ProductDetailsScreen(),
+      ),
+      GoRoute(
+        path: kProfileScreen,
+        builder: (context, state) => const CheckoutScreen(),
+      ),
     ],
   );
 }

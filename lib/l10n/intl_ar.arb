@@ -1,7 +1,8 @@
 {
     "ChangeMode": "تغيير الوضع",
+    "connectionerror": "خطأ في الاتصال تحقق من الاتصال. يرجى المحاولة مرة أخرى لاحقًا.",
     "ChangeLanguage": "تغيير اللغة",
-    "AuthLoginHeaderTitle": "أهلاً \nبعودتك!\n",
+    "AuthLoginHeaderTitle": "أهلاً \nبعودتك!\n", 
     "AuthSignupHeaderTitle": "إنشاء \nحساب",
     "CreateAccount": "إنشاء حساب",
     "signup": "سجّل",

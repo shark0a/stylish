@@ -71,6 +71,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "UsernameorEmail": MessageLookupByLibrary.simpleMessage(
       "Username or Email",
     ),
+    "connectionerror": MessageLookupByLibrary.simpleMessage(
+      "Connection error check internet. Please try again later.",
+    ),
     "signup": MessageLookupByLibrary.simpleMessage("Sign Up"),
   };
 }

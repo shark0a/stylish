@@ -1,5 +1,6 @@
 {
     "ChangeMode": "Change Mode",
+    "connectionerror": "Connection error check internet. Please try again later.",
     "ChangeLanguage": "Change Language",
     "AuthLoginHeaderTitle": "Welcome \nBack!\n",
     "AuthSignupHeaderTitle": "Create an \naccount",

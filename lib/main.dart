@@ -9,8 +9,8 @@ import 'package:stylish/stylish_app.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await dotenv.load(fileName: ".env");
   await setupServiceLocator();
+  await dotenv.load(fileName: ".env");
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   final oneSignalService = sl<OneSignalNotificationService>();
   oneSignalService.init();

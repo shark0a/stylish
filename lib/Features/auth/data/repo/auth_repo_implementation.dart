@@ -1,11 +1,16 @@
+import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:stylish/Features/auth/data/models/user_response_model.dart';
 import 'package:stylish/Features/auth/data/repo/auth_repo.dart';
+import 'package:stylish/core/service/api_service.dart';
+import 'package:stylish/generated/l10n.dart';
 
 class AuthRepoImplementation implements AuthRepo {
   final FirebaseAuth _firebaseAuth;
+  final ApiService apiService;
 
-  AuthRepoImplementation({FirebaseAuth? firebaseAuth})
+  AuthRepoImplementation({required this.apiService, FirebaseAuth? firebaseAuth})
     : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance;
 
   @override
@@ -55,6 +60,24 @@ class AuthRepoImplementation implements AuthRepo {
       }
     } catch (e) {
       throw 'Unexpected error: $e';
+    }
+  }
+
+  @override
+  Future<UserModel> userDataRequest(int userID) async {
+    try {
+      var response = await apiService.get('users/$userID');
+      return UserModel.fromJson(response);
+    } on DioException catch (e) {
+      if (e.type == DioExceptionType.connectionTimeout ||
+          e.type == DioExceptionType.receiveTimeout ||
+          e.type == DioExceptionType.sendTimeout) {
+        throw S.current.connectionerror;
+      } else if (e.response != null) {
+        throw S.current.connectionerror;
+      } else {
+        throw ' ${S.current.connectionerror}: ${e.message}';
+      }
     }
   }
 }

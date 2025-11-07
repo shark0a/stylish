@@ -59,6 +59,16 @@ class S {
     return Intl.message('Change Mode', name: 'ChangeMode', desc: '', args: []);
   }
 
+  /// `Connection error check internet. Please try again later.`
+  String get connectionerror {
+    return Intl.message(
+      'Connection error check internet. Please try again later.',
+      name: 'connectionerror',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Change Language`
   String get ChangeLanguage {
     return Intl.message(

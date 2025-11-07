@@ -5,18 +5,21 @@ class ProductDetailsSubTitleWidget extends StatelessWidget {
     super.key,
     required this.title,
     required this.fontsize,
-    this.fontWeight,
+    this.fontWeight, this.color, this.textDecoration,
   });
   final String title;
   final double fontsize;
   final FontWeight? fontWeight;
+  final Color? color;
+  final TextDecoration? textDecoration;
 
   @override
   Widget build(BuildContext context) {
     return Text(
       title,
       style: TextStyle(
-        color: Colors.black,
+        decoration: textDecoration,
+        color: color ?? Colors.black,
         fontSize: fontsize,
         fontFamily: 'Montserrat',
         fontWeight: fontWeight ?? FontWeight.w400,

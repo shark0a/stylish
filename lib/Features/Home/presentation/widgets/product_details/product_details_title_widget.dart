@@ -6,23 +6,23 @@ class ProductDetailsTitleWidget extends StatelessWidget {
     required this.title,
     required this.fontsize,
     this.fontWeight,
+    this.textAlign,
   });
   final String title;
   final double fontsize;
   final FontWeight? fontWeight;
+  final TextAlign? textAlign;
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 148,
-      child: Text(
-        title,
-        style: TextStyle(
-          color: Colors.black,
-          fontSize: fontsize,
-          fontFamily: 'Montserrat',
-          fontWeight: fontWeight ?? FontWeight.w600,
-          height: 1.10,
-        ),
+    return Text(
+      title,
+      textAlign: textAlign,
+      style: TextStyle(
+        color: Colors.black,
+        fontSize: fontsize,
+        fontFamily: 'Montserrat',
+        fontWeight: fontWeight ?? FontWeight.w600,
+        height: 1.10,
       ),
     );
   }

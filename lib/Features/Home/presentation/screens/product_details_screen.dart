@@ -17,14 +17,32 @@ import 'package:stylish/Features/Home/presentation/widgets/product_details/size_
 import 'package:stylish/core/provider/app_setting_provider.dart';
 import 'package:stylish/core/utils/app_styles.dart';
 
-class ProductDetailsScreen extends StatelessWidget {
+class ProductDetailsScreen extends StatefulWidget {
   const ProductDetailsScreen({super.key});
 
   @override
+  State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
+}
+
+class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
+  ProductModel? product;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    product ??= GoRouter.of(context).state.extra as ProductModel?;
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final product = GoRouter.of(context).state.extra as ProductModel;
+    if (product == null) {
+      return const Scaffold(
+        body: Center(child: Text(' Product data not available')),
+      );
+    }
+
     return Scaffold(
-      backgroundColor: Color(0xffF9F9F9),
+      backgroundColor: const Color(0xffF9F9F9),
       appBar: AppBar(
         backgroundColor: AppStyles.primaryBackgroungColor,
         surfaceTintColor: AppStyles.primaryBackgroungColor,
@@ -32,7 +50,7 @@ class ProductDetailsScreen extends StatelessWidget {
           onPressed: () {
             context.pop();
           },
-          icon: Icon(Icons.arrow_back_ios),
+          icon: const Icon(Icons.arrow_back_ios),
         ),
         actions: [
           Container(
@@ -43,7 +61,7 @@ class ProductDetailsScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(100),
               ),
             ),
-            child: Center(child: Icon(Icons.shopping_cart_outlined)),
+            child: const Center(child: Icon(Icons.shopping_cart_outlined)),
           ),
         ],
       ),
@@ -54,18 +72,18 @@ class ProductDetailsScreen extends StatelessWidget {
             Column(
               children: [
                 DisplayProductImage(
-                  productImageHeroTag: product.id,
+                  productImageHeroTag: product!.id,
                   imageUrl:
-                      product.images.isNotEmpty
-                          ? product.images.first
-                          : product.thumbnail,
+                      product!.images.isNotEmpty
+                          ? product!.images.first
+                          : product!.thumbnail,
                 ),
                 const SizedBox(height: 12),
-                IndicatorListView(),
+                const IndicatorListView(),
               ],
             ),
             const SizedBox(height: 12),
-            Text(
+            const Text(
               'Size: 7UK',
               style: TextStyle(
                 color: Colors.black,
@@ -76,59 +94,56 @@ class ProductDetailsScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 12),
-            SizeListView(),
+            const SizeListView(),
             const SizedBox(height: 12),
             ProductDetailsTitleWidget(
-              title: product.title ?? 'is null',
+              title: product!.title ?? 'is null',
               fontsize: 20,
             ),
             const SizedBox(height: 12),
             ProductDetailsSubTitleWidget(
-              title: product.category ?? 'Category is null',
+              title: product!.category ?? 'Category is null',
               fontsize: 14,
             ),
             const SizedBox(height: 12),
             ProductDetailsSections(
-              rating: product.rating ?? 0.0,
+              rating: product!.rating ?? 0.0,
               totalReviews:
-                  product.rating != null
-                      ? (product.rating! * 50).toDouble()
+                  product!.rating != null
+                      ? (product!.rating! * 50).toDouble()
                       : 0,
               pricewithDiscount:
-                  product.discountPercentage == null
+                  product!.discountPercentage == null
                       ? null
-                      : product.discountPercentage! / 100 * product.price!,
-
-              discountpresentage: product.discountPercentage,
-              pricewithOutDiscount: product.price!,
-              description: product.description ?? 'Description is null',
+                      : product!.discountPercentage! / 100 * product!.price!,
+              discountpresentage: product!.discountPercentage,
+              pricewithOutDiscount: product!.price!,
+              description: product!.description ?? 'Description is null',
             ),
             const SizedBox(height: 12),
-            ProductDetailsButtonRow(),
+            const ProductDetailsCheckoutButtons(),
             const SizedBox(height: 12),
-            ProductDetailsDeliveryInContainer(),
+            const ProductDetailsDeliveryInContainer(),
             const SizedBox(height: 12),
-            ProducDetailsSimillerButtonsView(),
+            const ProducDetailsSimillerButtonsView(),
             const SizedBox(height: 24),
-            context
-                    .watch<AppSettingsNotifierProvider>()
-                    .isProductScreenViewSimillerTaped
-                ? Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    ProductDetailsTitleWidget(
-                      title: 'Similar To',
-                      fontsize: 20,
-                    ),
-                    AllFeatureAndFilterRow(title: '282+ Iteams '),
-                    const SizedBox(height: 12),
-                    const SizedBox(height: 12),
-                    ItemsunderDealOfDayListView(
-                      provider: context.read<HomeProvider>(),
-                    ),
-                  ],
-                )
-                : SizedBox.shrink(),
+            if (context
+                .watch<AppSettingsNotifierProvider>()
+                .isProductScreenViewSimillerTaped)
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const ProductDetailsTitleWidget(
+                    title: 'Similar To',
+                    fontsize: 20,
+                  ),
+                  const AllFeatureAndFilterRow(title: '282+ Iteams '),
+                  const SizedBox(height: 12),
+                  ItemsunderDealOfDayListView(
+                    provider: context.read<HomeProvider>(),
+                  ),
+                ],
+              ),
           ],
         ),
       ),

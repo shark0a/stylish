@@ -9,7 +9,7 @@ class ShimmerCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
       baseColor: AppStyles.primaryBackgroungColor,
-      highlightColor: AppStyles.textgColorActiveNav.withOpacity(0.2),
+      highlightColor: AppStyles.textgColorActiveNav.withValues(alpha: 0.2),
       child: Card(
         color: const Color(0xffFDFDFD),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
@@ -18,7 +18,6 @@ class ShimmerCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // صورة وهمية
             Container(
               height: 120,
               width: double.infinity,

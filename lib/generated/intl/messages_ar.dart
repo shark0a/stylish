@@ -69,6 +69,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "UsernameorEmail": MessageLookupByLibrary.simpleMessage(
       "اسم المستخدم أو البريد الإلكتروني",
     ),
+    "connectionerror": MessageLookupByLibrary.simpleMessage(
+      "خطأ في الاتصال تحقق من الاتصال. يرجى المحاولة مرة أخرى لاحقًا.",
+    ),
     "signup": MessageLookupByLibrary.simpleMessage("سجّل"),
   };
 }

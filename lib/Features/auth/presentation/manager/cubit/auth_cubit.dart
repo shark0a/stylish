@@ -1,6 +1,12 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:stylish/Features/auth/data/models/user_response_model.dart';
 import 'package:stylish/Features/auth/data/repo/auth_repo.dart';
+import 'package:stylish/core/service/services_locator.dart';
+import 'package:stylish/core/utils/helper/hive_keys.dart';
+import 'package:stylish/core/utils/helper/hive_service.dart';
 
 part 'auth_cubit_state.dart';
 
@@ -12,6 +18,14 @@ class AuthCubit extends Cubit<AuthCubitState> {
     emit(AuthCubitLoading());
     try {
       await _authRepo.login(loginEmailController, loginPasswordController);
+
+      var result = await _authRepo.userDataRequest(1);
+      await sl<HiveService>().putData<UserModel>(
+        HiveKey.userDataBoxName,
+        'userData',
+        result,
+      );
+      log('User data saved to Hive: $result');
       emit(AuthCubitSuccess());
     } catch (e) {
       emit(AuthCubitFailure(errMessage: e.toString()));

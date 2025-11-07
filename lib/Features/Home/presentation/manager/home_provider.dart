@@ -1,10 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:stylish/Features/Home/data/models/product_model/product_response_model.dart';
 import 'package:stylish/Features/Home/domain/repo/home_repo.dart';
+import 'package:stylish/Features/auth/data/models/user_response_model.dart';
+import 'package:stylish/core/service/services_locator.dart';
 import 'package:stylish/core/utils/helper/error/faliure.dart';
+import 'package:stylish/core/utils/helper/hive_keys.dart';
+import 'package:stylish/core/utils/helper/hive_service.dart';
 
 class HomeProvider extends ChangeNotifier {
+  HomeProvider({required HomeRepo homeRepo}) : _homeRepo = homeRepo {
+    loadingUerLocalData();
+  }
   final HomeRepo _homeRepo;
+  UserModel? userData;
+
+  void loadingUerLocalData() {
+    userData = sl.get<HiveService>().getData<UserModel>(
+      HiveKey.userDataBoxName,
+      'userData',
+    );
+    notifyListeners();
+  }
+
   int offerCardIndexIndicator = 0;
   void togglefferCardIndexIndicator(int index) {
     offerCardIndexIndicator = index;
@@ -68,7 +85,6 @@ class HomeProvider extends ChangeNotifier {
   int _skip = 0;
   bool isFirstLoadDone = false;
 
-  HomeProvider({required HomeRepo homeRepo}) : _homeRepo = homeRepo;
   Future<void> fetchProducts({int limit = 10, bool firstLoad = true}) async {
     if (isFirstLoadDone && firstLoad) return;
 
